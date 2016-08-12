@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>Registration</title>
+     </head>
+    
+    <body>
+        <h1>Marketplace Registration</h1>
+        <form action="test/project">
+            <br><br>
+            <input type="text" id="company_name" name="company_name" placeholder="Business Name"><br><br>
+            Name of Applicant: <br><br>
+            <input type="text" id="first_name" name="first_name" placeholder="First Name"> &nbsp;&nbsp;&nbsp;
+           
+            <input type="text" id="last_name" name="last_name" placeholder="Last Name"><br><br>
+             <br><br>
+             <input type="text" id="mobile_number" name="mobile_number" placeholder="Application Mobile Number"><br><br>
+           <br><br>
+            <input type="text" id="apllicant_email_id" name="apllicant_email_id" placeholder="Application Email Id"><br><br>
+            <br><br>
+            <input type="text" id="designation" name="designation" placeholder="Designation"><br><br>
+             <br><br>
+             <input type="text" id="constitution_of_buisness" name="constitution_of_buisness" placeholder="Constitution of Bussiness"><br><br>
+            <br><br>
+            <input type="text" id="place_business" name="place_business" placeholder="Principal Place of Bussiness"><br><br>
+             : <br><br>
+             <input type="text" id="pincode" name="pincode" placeholder="Pincode"><br><br>
+             : <br><br>
+             <textarea rows="3" cols="30" id="comp_address_line1" name="comp_address_line1" placeholder="Address1"></textarea><br><br>
+             <textarea rows="3" cols="30" id="comp_address_line2" name="comp_address_line2" placeholder="Address2"></textarea><br><br>
+             <textarea rows="3" cols="30" id="comp_address_line3" name="comp_address_line3" placeholder="Address3"></textarea><br><br>
+            Contact Person : <br><br>
+            
+            <input type="text" id="cntct_prsn_first_name" name="cntct_prsn_first_name" placeholder="First Name">&nbsp;&nbsp;&nbsp;
+           
+            <input type="text" id="cntct_prsn_last_name" name="cntct_prsn_last_name" placeholder="Last Name"><br><br>
+            <br><br>
+             <input type="text" id="landline_with_STD" name="landline_with_STD" placeholder="LandLine Number"><br><br>
+            Annual Turnover : <br><br>
+            <input type="text" id="turn_over_current_year" name="turn_over_current_year" placeholder="CurrentYear">
+            <input type="text" id="turn_over_Year1" name="turn_over_Year1" placeholder="year1"><br><br>
+            <input type="text" id="turn_over_Year2" name="turn_over_Year2" placeholder="year2">
+            <input type="text" id="turn_over_Year3" name="turn_over_Year3" placeholder="year3"><br><br>
+            <input type="checkbox" id="buyerService" name="buyerService"  onclick="buyerOrSeller()">
+            Buyer Service
+            <input type="checkbox" id="sellerService" name="sellerService">
+            Seller Service
+            <input type="checkbox" id="buyerProducts" name="buyerProducts"  checked>
+            Buyer Products
+            <input type="checkbox" id="sellerProducts" name="sellerProducts" checked>
+            Seller Products<br><br>
+            <div id="log_services" style="display:none;">
+             <table  width="30%" style='border:1px solid black;'>   
+             <tr><td>
+            <input type="checkbox" id="ftl" name="ftl">FTL
+             </td> </tr><tr><td>
+            <input type="checkbox" id="ltl" name="ltl">LTL 
+             </td></tr><tr><td>
+            <input type="checkbox" id="haul" name="haul">Haul
+             </td></tr><tr><td>
+            <input type="checkbox" id="lease" name="lease">Lease
+             </td></tr><br><br>
+            </table>
+            </div>
+             <br><br>
+            <input type="text" id="gta_number" name="gta_number" placeholder="GTA Number"><br><br>
+            <br><br> 
+            <input type="text" id="service_tax_no" name="service_tax_no" placeholder="Service Tax Number"><br><br>
+             <br><br> 
+             <input type="text" id="tin_no" name="tin_no" placeholder="Tin Number"><br><br>
+             <br><br> 
+             <input type="text" id="banker" name="banker" placeholder="Banker"><br><br>
+            <br><br> 
+            <input type="text" id="branch" name="branch" placeholder="Branch"><br><br>
+             <input type="text" id="pan_number" name="pan_number" placeholder="PAN Number"><br><br>
+              <input type="text" id="ifsc_code" name="ifsc_code" placeholder="IFSC Code"><br><br>
+               <input type="text" id="bank_acc_no" name="bank_acc_no" placeholder="Bank Acct No"><br><br>
+             <br><br> 
+           
+            <input type="text" id="no_of_vhcle_owned" name="no_of_vhcle_owned" placeholder="Transporter/Vehicle Owner">
+           <input type="text" id="no_of_vhcle_owned" name="no_of_vhcle_owned" placeholder="No. Of Vehicles Owned">
+            <input type="text" id="no_of_vhcle_attachd" name="no_of_vhcle_attachd" placeholder=" No.Of Vehicles Attached">
+           
+            <input type="text" id="no_of_vhcle_gps" name="no_of_vhcle_gps"  placeholder="No.Of Vehicles With GPS"><br><br>
+            WareHouse Owner: <br><br>
+           
+            <input type="text" id="no_of_warehouseowned" name="no_of_warehouseowned" placeholder=" No.of Warehouses owned">
+             :
+            <input type="text" id="vendor_warehoise_service" name="vendor_warehoise_service" placeholder="Vendor Warehouse Service"><br><br>
+            : <br><br>
+            <input type="text" id="vendor_warehouse_products" name="vendor_warehouse_products" placeholder="Vendor Warehouse Products"><br><br>
+            Disclaimer: <br><br>
+            <input type="text" id="disclaimer" name="disclaimer"><br><br>
+            Terms & Conditions: <br><br>
+            <textarea rows="3" cols="30"></textarea><br><br>
+            <input type="submit" id="form_submit" name="form_submit" value="Add">
+            </form>
+    </body>
+</html>
+
+<script>
+    
+function buyerOrSeller(){
+        
+        var e = document.getElementById('log_services');
+         if(e.style.display == 'block')
+          e.style.display = 'none';
+        else
+          e.style.display = 'block';
+        
+}
+</script>
