@@ -36,5 +36,16 @@ Route::get('test', 'BuyerSearchController@test');
 Route::any('/form','SellerPostController@index');
 Route::any('/check','SellerPostController@check');
 
+//added on aug 18th 2016
+//Seller Post
+Route::any('/form','SellerPostController@index');
+Route::post('/check','SellerPostController@check');
+
+//search Post Master
+Route::get('/SellerSearch/{user_id}','SellerSearchController@SearchParams');
+Route::post('/SellerSearchList','SellerSearchController@checks');
 
 
+//book now
+Route::get('/PostMasterBook/{id}','SellerPostController@PostMasterView');
+Route::post('/PostMasterInsert','SellerPostController@PostMasterInsert');
