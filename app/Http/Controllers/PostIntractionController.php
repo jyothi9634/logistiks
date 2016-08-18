@@ -29,10 +29,4 @@ class PostIntractionController extends Controller
         $messagesList = $this->postIntraction->getMessagesListByPostId($id);
         return view("postIntractions.buyerPostMessages",['messagesLists'=>$messagesList]);
     }
-	
-	public function buyerPostMessageswww($id=null) {
-        $messagesList = $this->postIntraction->getMessagesListByPostId($id);
-        return view("postIntractions.buyerPostMessages",['messagesLists'=>$messagesList]);
-    }
-	
 }
