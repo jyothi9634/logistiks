@@ -30,6 +30,7 @@ Route::any('/buyer/buyerBilling' ,'BuyerSearchController@buyerBilling');
 Route::any('buyerFtlFilter', 'BuyerSearchController@buyerFtlFilter');
 Route::any('getUserDeatils', 'BuyerSearchController@getUserDeatils');
 Route::any('newMail', 'BuyerSearchController@newMail');
+Route::get('test', 'BuyerSearchController@test');
 
 Route::any('/form','SellerPostController@index');
 Route::any('/check','SellerPostController@check');
