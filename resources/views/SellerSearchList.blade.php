@@ -241,7 +241,7 @@
                         <td class="c-4"><?php echo $res->valid_to; ?></td>
                         <td class="c-5">10 Loads</td>
                         <td class="c-6">20 Loads</td>
-                        <td class="c-7"><input type="button" value="Book Now" class="button-red-2 margin-tl-1 "></td>
+                        <td class="c-7"><a href="{{url('PostMasterBook/1')}}"><input type="button" value="Book Now" class="button-red-2 margin-tl-1 "></a></td>
                       </tr>
                       
                       <tr>
