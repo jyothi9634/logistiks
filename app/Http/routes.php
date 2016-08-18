@@ -16,6 +16,7 @@ Route::any('Registration/store','RegistrationController@store');
 Route::any('individualRegistration','RegistrationController@indvReg');
 Route::any('individualRegistration/store','RegistrationController@storeIndvReg');
 Route::any('logistiks/Buyersearch','LogistiksController@buyerSearch');
+Route::any('test','LogistiksController@test');
 
 Route::any('/buyer/search' ,'BuyerSearchController@index');  
 Route::any('/buyer/srchPost' ,'BuyerSearchController@buyerSearch');  
