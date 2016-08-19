@@ -13,4 +13,10 @@
 function dateFormateToDMY($originalDate) {
     return date("d/m/Y", strtotime($originalDate));
 }
+function dateFormateToYMD($originalDate) {
+    return date("Y-m-d", strtotime($originalDate));
+}
+function dateFormateToYMDTime($originalDateTime) {
+    return date("Y-m-d H:i:s", strtotime($originalDateTime));
+}
 

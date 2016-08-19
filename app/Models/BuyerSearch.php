@@ -20,14 +20,17 @@ class BuyerSearch extends Model
                        ->leftjoin('payment_terms as pyt','pyt.id','=','lp.payment_term')
                        ->leftjoin('tracking_types as tt','tt.id','=','lp.tracking_type')
                        ->leftjoin('lgtks_users as lu','lu.id','=','lp.user_id');
-                  
-     $array = array('pld.district_name' =>$data['from_loc'],
-                    'pldd.district_name'=> $data['to_loc'],
-                    'lp.dispatch_dt'=> date('Y:m:d', strtotime($data['dispatch_dt'])),
-                    'lp.delivery_dt'=> date('Y:m:d', strtotime($data['delivery_dt'])),
+    
+                       
+     $array = array('pld.village' =>$data['from_loc'],
+                    'pldd.village'=> $data['to_loc'],
+                    'lp.dispatch_dt'=> date('Y-m-d', strtotime($data['dispatch_dt'])),
+                    'lp.delivery_dt'=> date('Y-m-d', strtotime($data['delivery_dt'])),
                     'lp.load_type'=>$data['load_type'],
                     'lp.veh_type'=>$data['veh_type']);
      
+     
+
      if($data['searchType'] == 'advancedFilter') {
 
          $advance = $credits = $mileStone = $realTime =0;
@@ -64,7 +67,8 @@ class BuyerSearch extends Model
     }
     
     $db_query = $base_table->where($array)->select('*','lp.id as post_id',DB::raw("DATE_FORMAT(valid_from,'%d/%m/%Y') as valid_from_date,DATE_FORMAT(valid_to,'%d/%m/%Y') as valid_to_date"))->get();
-        
+     
+
     return $db_query;
         
     }
@@ -92,6 +96,14 @@ class BuyerSearch extends Model
       }
 
     }
+
+    public function deleteOrder($seller_id,$buyer_id,$post_id,$order_id){
+      
+      DB::table('lgtks_orders')->where('id',$order_id)->delete();
+      
+
+    }
+
     public function buyerBooknow($user_id){
         try{
             
@@ -119,9 +131,7 @@ class BuyerSearch extends Model
        
        $order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
        
-       
-
-      if(empty($getbuyerCart)){
+       if(empty($getbuyerCart)){
 
       $seller_data  =      DB::table('lgtks_posts as lp')
                            ->leftjoin('pincode_location_details as pld','pld.id','=','lp.from_loc')
@@ -132,6 +142,9 @@ class BuyerSearch extends Model
                            ->select('*','pld.district_name as from_loct','pldd.district_name as to_loct')
                            ->get();
      
+     
+     
+
      foreach($seller_data as $seller){                   
       
       $dbInsert   =  ['post_id' => $post_id,
@@ -152,10 +165,9 @@ class BuyerSearch extends Model
                       'payment_term'=>$seller->payment_term,
                       'payment_method'=>$seller->payment_method,
                       //'tracking_type'=>$value->tracking_type,
-                      'contract_type'=>$seller->contract_type,
                       //'tracking_type'=>$value->payment_method,
-                      'source_location_type'=>$seller->from_loc,
-                      'destination_location_type'=>$seller->to_loc,
+                      'source_location_type'=>$getcartDetails['source_location_type'],
+                      'destination_location_type'=>$getcartDetails['dest_location_type'],
                       //'package_type'=>$value->payment_method,
                       //'consignment_pickup_date'=>$value->payment_method,
                       //'consignment_value'=>$getcartDetails['seller_name']

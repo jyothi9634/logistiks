@@ -9,15 +9,23 @@ use App\Models\Seller;
 
 class SellerPostComponent{
     
-    public static function SellerComponent($data,$nextdata){
-        echo"copo";print_r($nextdata);
-       Seller::SellerPostInsertion($data,$nextdata);
+    public static function SellerComponent($data,$nextdata,$session_id){
+        return 'here';
+        Seller::SellerPostInsertion($data,$nextdata,$session_id);
+
     }
     
     
     public static function GetData(){
+        
         $data =Seller::SellerPost();
         return $data;
+    }
+
+    public static function SellerSession($session_id){
+      
+      return DB::table('lgtks_users')->where('id',$session_id)->select('seller_buyer_flag','name')->get();
+
     }
     
     

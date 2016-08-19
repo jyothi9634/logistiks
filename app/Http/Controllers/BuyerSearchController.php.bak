@@ -57,13 +57,7 @@ class BuyerSearchController extends BaseController {
         
         $data = SellerPostComponent::GetData();
         $message ="";
-		    $inputData=array();
-        $session_id = Session::get('user_id');
-        $buyer = SellerPostComponent::SellerSession($session_id);
-        
-        Session::put('seller_buyer_flag',$buyer[0]->seller_buyer_flag);  
-        Session::put('name',$buyer[0]->name);
-
+		$inputData=array();
         return view('buyers.search', ['data' => $data,'message'=>$message,'inputData'=>$inputData]);
        
     }
@@ -76,10 +70,9 @@ class BuyerSearchController extends BaseController {
 
     public function buyerSearch() {
         try {           
-          $inputData = Input::all();
-
-			 $data = SellerPostComponent::GetData();
-			 $validator = Validator::make($inputData,[
+            $inputData = Input::all();
+			$data = SellerPostComponent::GetData();
+			$validator = Validator::make($inputData,[
 						'from_loc' => 'required',
 						'to_loc' => 'required',
 						'dispatch_dt' => 'required',
@@ -96,7 +89,6 @@ class BuyerSearchController extends BaseController {
             } else {
                     $inputData['searchType'] = "noramlSearch";
                     $BuyerSearchResult = BuyerSearchComponent::SellerPosts($inputData);
-                    
                     if(is_array($BuyerSearchResult))	{			
                     return view('buyers.ftlSearchList',['searchResults'=>$BuyerSearchResult,'data'=>$inputData]);
 					} else{
@@ -105,7 +97,7 @@ class BuyerSearchController extends BaseController {
             }
 		
         } catch (Exception $ex) {
-             
+             echo "in the exception";
 	
             return Redirect::to ( 'buyer/search' )->withInput(['data',$data])->withErrors(array('message' => 'Some thing went wrong. Please try again!!'));
         }
@@ -132,7 +124,7 @@ class BuyerSearchController extends BaseController {
     public function bookNow($seller_user_id,$post_id){
         try{
             
-            $buyer_id = Session::get('user_id') ;
+            $buyer_id = '1' ;
             
             $seller_post_details   = $this->buyer->getPostdata($post_id);
             
@@ -162,7 +154,7 @@ class BuyerSearchController extends BaseController {
                                             
             }       
             
-            return view('Buyers.cart',['cart_data'=>$getCart,'total_sum'=>$total_sum,'seller_id'=>$seller_id,'buyer_id'=>$buyer_user_id,'post_id'=>$post_id]);
+            return view('Buyers.cart',['cart_data'=>$getCart,'total_sum'=>$total_sum,'seller_id'=>$seller_id,'buyer_id'=>$buyer_user_id]);
         
         }
         catch(Exception $ex){
@@ -170,12 +162,6 @@ class BuyerSearchController extends BaseController {
             return $ex->getMessage();
         
         }
-    }
-
-    public function deleteOrder($order_id){
-
-        $this->buyer->deleteOrder($order_id);
-
     }
     
     public function buyerGsa($buyer_id,$seller_id){

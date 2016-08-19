@@ -7,17 +7,28 @@ use App\Http\Controllers\Controller;
 use App\Models\Seller;
 use App\Components\SellerPostComponent;
 use Redis;
+use Illuminate\Support\Facades\Session;
+
 
 class SellerPostController extends Controller{
     public function index(){
+        
         $data =SellerPostComponent::GetData();
-       return view('form',['data'=>$data]);
+        $session_id = Session::get('user_id');
+        $seller = SellerPostComponent::SellerSession($session_id);
+        
+        Session::put('seller_buyer_flag',$seller[0]->seller_buyer_flag);  
+        Session::put('name',$seller[0]->name);  
+
+        return view('SellerRateCard',['data'=>$data]);
     }
         
   public function check(Request $request){ 
       // if the user directly posts only rate card without add routes
      if(empty($_POST['jhfrm_loc']) || empty($_POST['jhto_loc']) || empty($_POST['jhveh_typ']) || empty($_POST['jhload_typ']) || empty($_POST['jhprice']) || empty($_POST['jhbuyer'])){
-         
+                    
+
+
                     if($request->input('post_title') != NULL){
                        $title        = $request->input('post_title');
                     }else{
@@ -92,9 +103,9 @@ class SellerPostController extends Controller{
                     }else{
                         return false;
                     }
-                
+                      
                      $post        = $request->input('checkbox_5'); 
-                    print_r($post);
+                      
 //                        $title        = $request->input('post_title');
 //                        $frm_loc      = $request->input('frm_loc');
 //                        $to_loc       = $request->input('to_loc');
@@ -131,14 +142,19 @@ class SellerPostController extends Controller{
            $crid_day=$_POST['crid_day']; 
              
           for($j=0;$j<count($disc_name);$j++){
-          $nextdata[$j]=['user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>$to_loc,'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j]];  
+            
+
+          $nextdata[$j]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>$to_loc,'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j]];  
            }  
          }
                       
-        $data=['title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>'2','dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$load_typ,'veh_type'=>$veh_typ,'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$price,'transit_days'=>$transit_days,'payment_term'=>'1','tracking_type'=>$tracking,'contract_type'=>'1','seller_buyer_flag'=>'1'];
-                
-         if($data != NULL){
-           SellerPostComponent::SellerComponent($data,$nextdata);
+        $session_id = Session::get('user_id');
+
+        $data=['user_id'=>$session_id,'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>'2','dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$load_typ,'veh_type'=>$veh_typ,'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$price,'transit_days'=>$transit_days,'payment_term'=>'1','created_on'=>date("Y-m-d"),'tracking_type'=>$tracking,'contract_type'=>'1','seller_buyer_flag'=>'0','private_public_flag'=>'0'];
+        
+        if($data != NULL){
+           return SellerPostComponent::SellerComponent($data,$nextdata,$session_id);
+           return Redirect::to('/buyer/search');
          }else{
               return redirect()->back();
           }
@@ -198,7 +214,7 @@ class SellerPostController extends Controller{
         $jhprice=$_POST['jhprice'];
         $jhbuyer=$_POST['jhbuyer'];
         for($i=0;$i<count($jhfrm_loc);$i++){
-          $data[$i]=['title'=>$title,'from_loc'=>$jhfrm_loc[$i],'to_loc'=>$jhto_loc[$i],'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$jhload_typ[$i],'veh_type'=>$jhveh_typ[$i],'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$jhprice[$i],'transit_days'=>$transit_days,'payment_term'=>'1','tracking_type'=>$tracking,'contract_type'=>'1','seller_buyer_flag'=>$jhbuyer[$i]];  
+          $data[$i]=['user_id'=>'1','title'=>$title,'from_loc'=>$jhfrm_loc[$i],'to_loc'=>$jhto_loc[$i],'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$jhload_typ[$i],'veh_type'=>$jhveh_typ[$i],'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$jhprice[$i],'transit_days'=>$transit_days,'payment_term'=>'1','tracking_type'=>$tracking,'contract_type'=>'1','created_on'=>date("Y-m-d"),'seller_buyer_flag'=>$jhbuyer[$i],'private_public_flag'=>'0'];  
          } 
          
                
@@ -210,16 +226,16 @@ class SellerPostController extends Controller{
            $disc_type=$_POST['disc_type'];
            $discount=$_POST['discount'];
            $crid_day=$_POST['crid_day']; 
+            //'user_id'=>$disc_name[$j]
            for($j=0;$j<count($disc_name);$j++){
-            $nextdata[]=['user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>$to_loc,'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j]];  
+            $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>$to_loc,'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j]];  
             } 
          }
-          
          
-          SellerPostComponent::SellerComponent($data,$nextdata);
-         
-          
-      }
+         $session_id = Session::get('user_id');
+
+         SellerPostComponent::SellerComponent($data,$nextdata,$session_id);
+     }
       
     }
     
@@ -428,8 +444,8 @@ class SellerPostController extends Controller{
      }
   
      $need_insurance        = $request->input('need_insurance'); 
-	 
-	$data=['id'=>$post_id,'from_location'=>1,'to_location'=>2,'consignor_name'=>$consignor_name,'consignor_mobile_number'=>$consignor_mobile_number,'consignor_email'=>$consignor_email,'consignor_address1'=>$consignor_address1,'consignor_address2'=>$consignor_address2,'consignor_address3'=>$consignor_address3,'consignor_pincode'=>$consignor_pincode,'consignor_city'=>$consignor_city,'consignor_state'=>$consignor_state,'consignee_name'=>$consignee_name,'consignee_mobile_number'=>$consignee_mobile_number,'consignee_email'=>$consignee_email,'consignee_address1'=>$consignee_address1,'consignee_address2'=>$consignee_address2,'consignee_address3'=>$consignee_address3,'consignee_pincode'=>$consignee_pincode,'consignee_state'=>$consignee_state,'consignee_city'=>$consignee_city,'consignment'=>'1','transit_days'=>$transit_days,'need_insurance'=>$transit_days,'additional_details'=>$additional_details,'ordered_date'=>$ordered_date,'package_type'=>$package_type,'consignment_type'=>$consignment_type,'consignment_value'=>$consignment_value,'payment_term'=>$payment_term,'payment_method'=>$adv_payment_type,'price'=>$price,'tracking_type'=>$tracking_type,'created_on'=>date("Y-m-d"),'user_id'=>$user_id,'lgtks_post_id'=>$post_id];
+	 $create=date("Y-m-d");
+	$data=['id'=>$post_id,'from_location'=>1,'to_location'=>2,'consignor_name'=>$consignor_name,'consignor_mobile_number'=>$consignor_mobile_number,'consignor_email'=>$consignor_email,'consignor_address1'=>$consignor_address1,'consignor_address2'=>$consignor_address2,'consignor_address3'=>$consignor_address3,'consignor_pincode'=>$consignor_pincode,'consignor_city'=>$consignor_city,'consignor_state'=>$consignor_state,'consignee_name'=>$consignee_name,'consignee_mobile_number'=>$consignee_mobile_number,'consignee_email'=>$consignee_email,'consignee_address1'=>$consignee_address1,'consignee_address2'=>$consignee_address2,'consignee_address3'=>$consignee_address3,'consignee_pincode'=>$consignee_pincode,'consignee_state'=>$consignee_state,'consignee_city'=>$consignee_city,'consignment'=>'1','transit_days'=>$transit_days,'need_insurance'=>$transit_days,'additional_details'=>$additional_details,'ordered_date'=>$ordered_date,'package_type'=>$package_type,'consignment_type'=>$consignment_type,'consignment_value'=>$consignment_value,'payment_term'=>$payment_term,'payment_method'=>$adv_payment_type,'price'=>$price,'tracking_type'=>$tracking_type,'created_on'=>$create,'user_id'=>$user_id,'lgtks_post_id'=>$post_id];
       print_r($data);        
       if($data != NULL){
        SellerPostComponent::PostMasterComponent($data);
