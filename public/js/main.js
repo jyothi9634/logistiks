@@ -60,6 +60,15 @@ $( function() {
   } );
   
   
+  $( function() {
+    $( "#tabs-2" ).tabs();
+  } );
+  
+    $( function() {
+    $( "#tabs-3" ).tabs();
+  } );
+  
+  
   
   
 /*  $(document).ready(function(){
@@ -106,3 +115,34 @@ $(document).ready(function() {
 				
 		});	
 		
+
+
+/*date picker Flexible dates*/
+
+$(document).ready(function(){
+$(".from-date-control").click(function(){
+		setTimeout(function(){
+			$('.clear-date-from, .clear-date-to').hide();
+			$('.clear-date-from').show();	
+		},10);
+	});
+	$(".to-date-control").click(function(){
+		setTimeout(function(){
+			$('.clear-date-from, .clear-date-to').hide();
+			$('.clear-date-to').show();	
+		},10);
+	});
+	
+	$( "body" ).on( "click", ".clear-date-from", function() {
+		$(".from-date-control").val("");
+	});
+	
+	$( "body" ).on( "click", ".clear-date-to", function() {
+		$(".to-date-control").val("");
+	});
+	
+
+// CALENDAR CLEAR CODE ENDS HERE	
+	
+	
+});

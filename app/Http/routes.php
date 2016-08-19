@@ -12,11 +12,42 @@
 */
 
 Route::any('memberRegistration','RegistrationController@index');
-Route::any('Registration/store','RegistrationController@store');
-Route::any('individualRegistration','RegistrationController@indvReg');
+Route::any('memberRegistration/privacyPolicy','RegistrationController@privacyPolicy');
+Route::any('memberRegistration/termsOfuse','RegistrationController@termsOfuse');
+
+Route::any('registration/store','RegistrationController@store');
+//Route::any('individualRegistration','RegistrationController@indvReg');
+Route::any('validateId','RegistrationController@validateId');
+
+Route::any('/getlocationdetails','RegistrationController@getlocationdetails');
 Route::any('individualRegistration/store','RegistrationController@storeIndvReg');
+Route::any('individualRegistration/confirmRegistration','RegistrationController@confirmRegistration');
+Route::any('userSubscription','RegistrationController@userSubscription');
+Route::any('marketplaceRegistration/{registered_id}','RegistrationController@marketplaceRegistration');
+Route::any('/otptest' ,'RegistrationController@otptest'); 
+Route::any('validateUserEmail','RegistrationController@validateUserEmail');
+Route::any('sendOtp','RegistrationController@sendOtp');
+Route::any('saveMarketplaceReg','RegistrationController@saveMarketplaceReg');
+Route::any('/checkAuth','LoginController@checkAuth');
+Route::any('dashboard','LoginController@dashboard');
+Route::any('/forgotPassword','LoginController@forgotPassword');
+Route::any('/sendMail','LoginController@sendMail');
+Route::any('/user_activation','RegistrationController@userActivation');
+Route::any('paymentPost','PaymentPostController@paymentPost');
+Route::any('paymentResponse','PaymentPostController@paymentResponse');
+Route::any('paymentConfirm','PaymentPostController@paymentConfirm');
+Route::any('paymentForBook','PaymentPostController@paymentForBook');
+Route::any('paymentBookResponse','PaymentPostController@paymentBookResponse');
+Route::any('thankYouOrder','PaymentPostController@thankYouOrder');
+
+
+
+
+
+
+
+
 Route::any('logistiks/Buyersearch','LogistiksController@buyerSearch');
-Route::any('test','LogistiksController@test');
 
 Route::any('/buyer/search' ,'BuyerSearchController@index');  
 Route::any('/buyer/srchPost' ,'BuyerSearchController@buyerSearch');  
@@ -24,28 +55,20 @@ Route::any('/buyer/bookNow/{seller_user_id}/{post_id}' ,'BuyerSearchController@b
 Route::any('/buyer/Cart/{buyer_user_id}/{seller_user_id}/{post_id}' ,'BuyerSearchController@Cart');  
 Route::any('/buyer/buyerGsa/{buyer_user_id}/{seller_user_id}' ,'BuyerSearchController@buyerGsa');  
 Route::any('/buyer/buyerConfirmation/{buyer_user_id}' ,'BuyerSearchController@buyerConfirmation');  
-Route::any('/buyer/buyerBilling' ,'BuyerSearchController@buyerBilling');  
+Route::any('/buyer/buyerBilling' ,'BuyerSearchController@buyerBilling');
+Route::any('/buyer/deleteOrder/{seller_user_id}/{buyer_user_id}/{post_id}/{order_id}' ,'BuyerSearchController@deleteOrder'); 
+Route::any('/SellerRateCard','SellerPostController@index');
+Route::post('/check','SellerPostController@check');
+Route::any('/user/logOut','LoginController@logOut');
 
 
-//Route::get('ftlSearchList', 'BuyerSearchController@ftlSearchList');
+
 Route::any('buyerFtlFilter', 'BuyerSearchController@buyerFtlFilter');
 Route::any('getUserDeatils', 'BuyerSearchController@getUserDeatils');
 Route::any('newMail', 'BuyerSearchController@newMail');
-Route::get('test', 'BuyerSearchController@test');
 
 Route::any('/form','SellerPostController@index');
 Route::any('/check','SellerPostController@check');
 
-//added on aug 18th 2016
-//Seller Post
-Route::any('/form','SellerPostController@index');
-Route::post('/check','SellerPostController@check');
-
-//search Post Master
-Route::get('/SellerSearch/{user_id}','SellerSearchController@SearchParams');
-Route::post('/SellerSearchList','SellerSearchController@checks');
 
 
-//book now
-Route::get('/PostMasterBook/{id}','SellerPostController@PostMasterView');
-Route::post('/PostMasterInsert','SellerPostController@PostMasterInsert');

@@ -23,7 +23,7 @@ ul#new-accordian-menu {
 	float: left;
 	width: 100%;
 	text-decoration: none;
-	color: #fff;
+	color: #000;
 	font-family: 'Calibri';
 	font-size: 16px;
 	font-weight: normal;
@@ -35,7 +35,7 @@ ul#new-accordian-menu {
 }
 #new-accordian-menu li a:hover {
 	display: block;
-	background: #231f20;
+	background: #ed1d25;
 	text-decoration: none;
 	color: #fff;
 	font-family: 'Calibri';
@@ -51,7 +51,7 @@ ul#new-accordian-menu {
 }
 #new-accordian-menu li a.active {
 	display: block;
-	background: #231f20;
+	background: #ed1d25;
 	text-decoration: none;
 	color: #fff;
 	font-family: 'Calibri';

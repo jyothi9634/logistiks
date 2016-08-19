@@ -56,3 +56,9 @@ input[type=radio].css-radiobtn {position: absolute;z-index: -1000;left: -1000px;
 input[type=radio].css-radiobtn + label.radio-label, input[type=radio].css-radiobtn + label.radio-label.clr { padding-left: 22px;	height: 17px;display: inline-block;line-height: 17px;background-repeat: no-repeat;background-position: 0 0;font-size: 17px;vertical-align: middle;cursor: pointer;}
 input[type=radio].css-radiobtn:checked + label.radio-label, input[type=radio].css-radiobtn + label.radio-label.chk {background-position: 0 -17px;}
 label.radio-label {	background-image: url(../images/radio-btn.png); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
+
+.green-check input[type=checkbox].css-checkbox { position: absolute; z-index: -1000; left: -1000px; overflow: hidden; clip: rect(0 0 0 0); height: 1px; width: 1px; margin: -1px; padding: 0; border: 0; }
+.green-check input[type=checkbox].css-checkbox + label.checkbox_label, input[type=checkbox].css-checkbox + label.checkbox_label.clr { padding-left: 25px;height: 15px;display: inline-block;line-height: 15px;background-repeat: no-repeat;background-position: 0 0;font-size: 15px;vertical-align: middle;cursor: pointer;color:#4aafef !important;; }
+.green-check input[type=checkbox].css-checkbox:checked + label.checkbox_label, input[type=checkbox].css-checkbox + label.checkbox_label.chk { background-position: 0 -15px; }
+.green-check label.checkbox_label {background-image: url(../images/csscheckbox-2.png);-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+

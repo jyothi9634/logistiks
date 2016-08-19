@@ -39,6 +39,7 @@
     <td>{{date("Y-m-d", strtotime($data->consignment_pickup_date))}}</td>
     <td>Road FTL</td>
     <td>{{$data->price}}</td>
+    <!-- <td><a href="/buyer/deleteOrder/{{$seller_id}}/{{$buyer_id}}/{{$post_id}}/{{$data->id}}"><img src="/images/delete-1.png" width="20" height="21" alt="delete"></a></td> -->
     <td><a href="#"><img src="/images/delete-1.png" width="20" height="21" alt="delete"></a></td>
   </tr>
   @endforeach

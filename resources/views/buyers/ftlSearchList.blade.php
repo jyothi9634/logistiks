@@ -3,32 +3,7 @@
 @section('content')
 <!-- Don't forget to include jQuery ;) -->
   <script src="jquery.modal.js" type="text/javascript" charset="utf-8"></script>
-<div class="menu">
-    <div class="wrapper-1">
-        <div class="tbl-1">
-            <div class="row-1">
-                <div class="cell-1">
-                    <div class="menu-nav-1">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Products</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="cell-1">
-                    <div class="menu-nav-2">
-                        <ul>
-                            <li><a href="#" class="select-1">Buyer</a></li>
-                            <li><a href="#">Help</a></li>
-                            <li><a href="#"><img src="/images/shoping-cart-1.png" alt="Shoping-cart"></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="container-1">
     <div class="tbl-1">
         <div class="row-1">
@@ -76,7 +51,7 @@
                                     </div>
                                     <div class="cell-1">
                                         <ul class="pull-right">
-                                            <li class="modify-button"><a href="#">Modify Search</a></li>
+                                            <input type="button"  id="modify_search" name="modify_search"  value="Modify Search" class="modify-button" onclick="browserBack()">
                                             @if(!empty($searchResults))
                                             <li><a href="#" id="showhide-btn-3"><img src="/images/filter.png" width="14" height="10" alt="filter">Filters</a></li>
                                             @endif
@@ -267,5 +242,12 @@
 
 <!-- <script src="/js/controller.js"></script> -->
 <script src="/js/buyers/ftl_filter.js"></script>
+<script>
+function browserBack(){
+
+    window.history.back();
+
+}
+</script>
 
 @stop

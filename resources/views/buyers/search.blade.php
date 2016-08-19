@@ -1,10 +1,10 @@
 @extends('layouts.default')
 @section('content')
-@include('error.error');
+@include('errors.error');
 <script language="javascript">
   var i= false;
   var j= false;
-$(document).ready(function() {
+/*$(document).ready(function() {
 
 $('#submit').attr('disabled','disabled');
 $('#from_loc , #to_loc, #dispatch_dt,#delivery_dt,#qty').bind('change keyup', function() {
@@ -21,7 +21,7 @@ if(allFilled()) {
   }
 
     });
-});
+});*/
 function allFilled() {
     var filled = true;
     $('body input').each(function() {
@@ -41,32 +41,7 @@ function allSelected() {
     return selected;
 }
 </script>
-  <div class="menu">
-  <div class="wrapper-1">
-    <div class="tbl-1">
-      <div class="row-1">
-        <div class="cell-1">
-          <div class="menu-nav-1">
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Products</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="cell-1">
-          <div class="menu-nav-2">
-            <ul>
-              <li><a href="#" class="select-1">Buyer</a></li>
-              <li><a href="#">Help</a></li>
-              <li><a href="#"><img src="/images/shoping-cart-1.png" alt="Shoping-cart"></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="container-1">
   <div class="tbl-1">
     <div class="row-1">
@@ -127,17 +102,17 @@ function allSelected() {
                 <ul>
                   <li><span class="input input-logistiks">
                      {!! $errors->first('from_loc', 'From Location Mandatory Field') !!}
-                    <input class="animated-field animated-field-logistiks" type="text" id="from_loc" placeholder="From Location *" name="from_loc">
+                    <input class="animated-field animated-field-logistiks" type="text" id="from_loc" placeholder="From Location *" name="from_loc" required>
                   <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="from_loc"> <span class="animated-label-content animated-label-content-logistiks"></span></label>
                  </span></li>
                 <li><span class="input input-logistiks">
                      {!! $errors->first('to_loc', 'To Location Mandatory Field') !!}
-                    <input class="animated-field animated-field-logistiks" type="text"  id="to_loc" placeholder="To Location *" name="to_loc">
+                    <input class="animated-field animated-field-logistiks" type="text"  id="to_loc" placeholder="To Location *" name="to_loc" required>
                   <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="to_loc"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
                     </span></li>
                   <li>
             {!! $errors->first('dispatch_dt', 'Dispatch Date Mandatory Field') !!}
-                   <input id="dispatch_dt" name="dispatch_dt" class="datepicker" placeholder="Dispatch Date* (Flex dates option)"   type="text" value="">
+                   <input id="dispatch_dt" name="dispatch_dt" class="datepicker" placeholder="Dispatch Date* (Flex dates option)"   type="text" value="" required>
                     <input type="hidden" name="dispatch_flexible_hidden" id="dispatch_flexible_hidden" value="0">
                   
                     </li>
@@ -150,7 +125,7 @@ function allSelected() {
                   <li>
           {!! $errors->first('delivery_dt', 'Delivery Date Mandatory Field') !!}
                    
-                  <input id="delivery_dt" name="delivery_dt" class="datepicker" placeholder="Delivery Date * (Flex dates option)" readonly=""  type="text" value="">
+                  <input id="delivery_dt" name="delivery_dt" class="datepicker" placeholder="Delivery Date * (Flex dates option)" readonly=""  type="text" value="" required>
                   <input type="hidden" name="delivery_flexible_hidden" id="delivery_flexible_hidden" value="0">
                   </li> 
                   <li>
@@ -228,7 +203,7 @@ function allSelected() {
     $(".datepicker").datepicker({
         changeMonth: true,
         minDate: 0,
-        dateFormat: "dd/mm/yy",
+        dateFormat: "yy/mm/dd",
         show_flexible: 1,
         flex_identifier: "DESPATCH DATE_flexible",
         flex_text: "Flexible dates",
@@ -242,7 +217,7 @@ function allSelected() {
         show_flexible: 1,
         flex_identifier: "delivery_flexible",
         flex_text: "Flexible dates",
-        dateFormat: "dd/mm/yy",
+        dateFormat: "yy/mm/dd",
         onClose: function(selectedDate) {
             $(".DESPATCH DATE_date1").datepicker("option", "maxDate", selectedDate);
         }

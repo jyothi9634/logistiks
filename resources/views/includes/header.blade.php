@@ -2,9 +2,7 @@
 <title>Logi stiks</title>
 <link rel="stylesheet" href="/css/normalize.min.css">
 <link rel="stylesheet" href="/css/styles.css">
- <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script> -->
-<script src="/js/jquery-3.1.0.min.js"></script> 
+<script src="/js/jquery-3.1.0.min.js"></script>
 <link rel="stylesheet" href="/css/text-filed-1.css">
 <script src="/js/text-filed-1.js"></script>
 <link rel="stylesheet" href="/css/jquery-ui.css">
@@ -15,55 +13,20 @@
 <script src="/js/text-filed-1-shartcode.js"></script> 
 <script src="/js/main.js"></script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-  
- 
-  
-  <script>
-    $( function() {
-    $( "#dispatch_dt" ).datepicker();
-	$( "#delivery_dt" ).datepicker();
-  } );
-  
-  var src = [
-    "ActionScript",
-    "AppleScript",
-    "Asp",
-    "BASIC",
-    "C",
-    "C++",
-    "Clojure",
-    "COBOL",
-    "ColdFusion",
-    "Erlang",
-    "Fortran",
-    "Groovy",
-    "Haskell",
-    "Java",
-    "JavaScript",
-    "Lisp",
-    "Perl",
-    "PHP",
-    "Python",
-    "Ruby",
-    "Scala",
-    "Scheme"];
 
-$("#auto").autocomplete({ 
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"> -->
+<!--  <link rel="stylesheet" href="/resources/demos/style.css">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
-    maxResults: 6,
-    source: function(request, response) {
-        var results = $.ui.autocomplete.filter(src, request.term);
-        
-        response(results.slice(0, this.options.maxResults));
-    }
-});
-  </script>
+   -->
+
 
 <!--[if lt IE 9]>
 	<script src="../js/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
+
 </head>
 <body>
 <header>
@@ -101,11 +64,42 @@ $("#auto").autocomplete({
                 Network</a></li>
               <li><a href="http://psmprojects.net/logistiks/ver5/buyer/Buyer_Search_4.html#">
                 <div class="header-icon-1"><img src="/images/profile-pic-header.png" alt="Profile"></div>
-                Nair PV</a></li>
+                {{Session::get('name')}}</a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="menu">
+    <div class="wrapper-1">
+        <div class="tbl-1">
+            <div class="row-1">
+                <div class="cell-1">
+                    <div class="menu-nav-1">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Products</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cell-1">
+                    <div class="menu-nav-2">
+                        <ul>
+                            @if(Session::get('seller_buyer_flag') == 2)
+                            <li><a href="#" class="select-1">Seller</a></li>
+                            @else
+                            <li><a href="#" class="select-1">Buyer</a></li>
+                            @endif
+                            <li><a href="#">Help</a></li>
+                            <li><a href="/user/logOut">LogOut</a></li>
+                            <li><a href="#"><img src="/images/shoping-cart-1.png" alt="Shoping-cart"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </header>

@@ -1,31 +1,46 @@
 @extends('layouts.default')
 @section('content')
-<div class="menu">
-  <div class="wrapper-1">
-    <div class="tbl-1">
-      <div class="row-1">
-        <div class="cell-1">
-          <div class="menu-nav-1">
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Products</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="cell-1">
-          <div class="menu-nav-2">
-            <ul>
-              <li><a href="#" class="select-1">Buyer</a></li>
-              <li><a href="#">Help</a></li>
-            <li><a href="#"><img src="/images/shoping-cart-1.png" alt="Shoping-cart"></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
 <div class="container-1">
 <div class="tbl-1">
     <div class="row-1">
@@ -90,8 +105,7 @@
                 </tbody></table>
             </div>
 
-  {!! Form::open(array('url' => 'buyer/Cart'.'/'.$buyer_user_id.'/'.$seller_user_id.'/'.$post_id)) !!}  
-    
+  {!! Form::open(array('url' => 'buyer/Cart'.'/'.$buyer_user_id.'/'.$seller_user_id.'/'.$post_id,'id'=>'formId')) !!}  
     <div class="column-1 field-main">
               <div class="grid-3">
                 <ul>
@@ -144,7 +158,7 @@
                  </li>
                   <li>
                   <div class="select-box1">
-                      <select name="">
+                      <select name="cons_value" id="cons_value">
                         <option value="one">Consignment Value*</option>
                         <option value="two">two</option>
                         <option value="three">three</option>
@@ -154,20 +168,7 @@
                 </ul>
               </div>
               
-              <div class="grid-3 margin-top-1">
-                <ul>
-                  <li>
-                 
-                  </li>
-                  <li>
-                    
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox_1" id="checkbox_1" class="css-checkbox">
-                    <label for="checkbox_1" class="checkbox_label">Need Insurance</label>
-                  </li>
-                </ul>
-              </div>
+              
             </div>
       
             <div class="column-2">
@@ -254,7 +255,7 @@
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_email_id" name="buyer_email_id" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_email_id" name="buyer_email_id" required>
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">E Mail*</span> </label>
                     </span></li>
                 </ul>
@@ -298,14 +299,60 @@
                 </ul>
               </div>
               
-              <div class="grid-3">
+             <div class="grid-3 margin-top-1">
                 <ul>
-                  <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_add_details" name="buyer_add_details" >
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Additional Details</span> </label>
-                    </span></li>
-                    
-                   
+                  
+                  <li>
+                    <input type="checkbox" name="checkbox_1" id="checkbox_1" class="css-checkbox" onclick="needInsurance()">
+                    <label for="checkbox_1" class="checkbox_label">Need Insurance</label>
+
+                    <!-- The Modal -->
+                      <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" >
+                          <span class="close"></span>
+                          <div class="column-2">
+                              <div class="grid-3" >
+                            <ul>
+                              <li><span class="input input-logistiks">
+                                <input class="animated-field animated-field-logistiks" type="text" id="invoice_value" name="invoice_value" value="" readonly>
+                                <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">InvoiceValue*</span> </label>
+                                </span></li>
+                              <li style="float:right;"><span class="input input-logistiks">
+                               <input type="text" class="datepicker" placeholder="Date*"  id="invoice_date" name="invoice_date">
+                                </span></li></ul>
+                              </div>
+
+                          <div class="grid-3">
+                            <ul>
+                              <li><span class="input input-logistiks">
+                                <input class="animated-field animated-field-logistiks" type="text" id="invoice_number" name="invoice_number" value="" readonly>
+                                <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">InvoiceNo*</span> </label>
+                                </span></li>
+                              
+                              <li style="float:right;"><span class="input input-logistiks">
+                                <input class="animated-field animated-field-logistiks" type="text" id="additional_details" name="additional_details" value="" readonly>
+                                <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">AdditionalInfo*</span> </label>
+                                </span></li></ul>
+                              
+                              </div>
+                            
+                            </div>
+                            <div class="column-2">
+                            <div class="grid-3">
+                            <ul>
+                             
+                              <li style="float:right;"><span class="input input-logistiks">
+                              <input type="submit" id="submit_id" name="submit_id" value="Submit" class="button-red-1">
+                              </span></li></ul>
+                              
+                              </div>
+                            </div>
+
+                        </div>
+
+                      </div>
+                  </li>
                 </ul>
               </div>
               
@@ -426,4 +473,64 @@
 </div>
 <script src="/js/text-filed-1-shartcode.js"></script> 
 <script src="/js/main.js"></script>
+<script>
+// Get the modal
+$(document).ready(function () {
+
+
+$('#formId').validate({ 
+        //alert($("#id_proof").val());
+        rules: {
+
+        buyer_email_id: {
+                required: true,
+                email:true
+              },
+                        
+        /*     
+        submitHandler: function (marketformId) {
+            return false;
+        }*/
+    });
+
+});
+
+function needInsurance(){
+
+var modal = document.getElementById('myModal');
+
+var btn = document.getElementById("checkbox_1").checked;
+
+var cons_val = document.getElementById("cons_value").value;
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+  if(btn==true)
+    modal.style.display = "block";
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+}
+$(function() {
+    var month = (new Date).getMonth();
+    var year = (new Date).getFullYear();
+
+    $( "#invoice_date" ).datepicker({
+        maxDate: new Date(year, month , 31)
+    });
+});
+
+
+</script>
 @stop

@@ -86,7 +86,30 @@ For this transaction from Hyderabad to Chennai the buyer has to give the followi
 <li>FORM JJ /KK /LLI</li>
 </ul>
       </div>        
-              
+          <div class="text-right">
+              <form method="post" action="/paymentPost" name="subscription" id="subscription">
+             
+                <input type="hidden" name="amount" value="4000"  class="css-radiobtn">
+                <input name="account_id" type="hidden" value="20150"/>
+                <input name="secretkey" type="hidden" value="209b9b0bffc0ddafbbd0047a892b9dd3" size="35"/>
+                <input name="return_url" type="hidden" size="60" value="http://<?php echo $_SERVER['SERVER_NAME']; ?>/paymentBookResponse" />
+                <input name="channel" type="hidden"  value="10" />
+                <input name="reference_no" type="hidden" value="<?php echo time();?>" />
+                <input name="currency" type="hidden" value="INR" />
+                <input name="mode" type="hidden" value="LIVE" />
+                <input name="description" type="hidden" value="Test Product" />
+                <input name="name" type="hidden" value="Test Name" /></td>
+                <input name="address" type="hidden" value="Test Address" /></td>
+                <input name="city" type="hidden" value="Mumbai" />
+                <input name="state" type="hidden" value="MH" />
+                <input name="postal_code" type="hidden" value="400069" />
+                <input name="country" type="hidden" value="IND" />
+                <input name="email" type="hidden" value="test@test.com" />
+                <input name="phone" type="hidden" value="2211112222" />
+                <input name="paymetType" type="hidden" value="booknow" />
+                  <input type="submit" id="acceptGsa" class="button-red-1" value="I ACCEPT">
+              </form>
+                </div>
             </div>
           </div>
         </div>
@@ -97,4 +120,9 @@ For this transaction from Hyderabad to Chennai the buyer has to give the followi
 </div>
 <script src="/js/text-filed-1-shartcode.js"></script> 
 <script src="/js/main.js"></script>
+<script>
+    $('body').on('click','#acceptGsa',function(){
+        
+    });
+</script>
 @stop
