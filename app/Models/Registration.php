@@ -195,7 +195,7 @@ class Registration extends Model
                      ->where('rg.id',$data['registered_id'])->pluck('bf.id');
       
      $array = array();
-
+     
       $count = count($data['annual_turnvalue']);
 
       for($i=0; $i<$count-1; $i++){
@@ -204,11 +204,13 @@ class Registration extends Model
       
        }
        
-       $off_array = array();
        
+       
+       $off_array = array();
+       $req_array = array();
 
       foreach($data as $key=>$value){
-        
+          
         $off_pos = strstr($key, 'off_');
         $req_pos = strstr($key, 'req_');
         
@@ -217,7 +219,7 @@ class Registration extends Model
 
         if(!empty($req_pos))
         $req_array[] = $value;  
-
+        
       } 
       
       if(empty($business_id[0])){
@@ -268,13 +270,19 @@ class Registration extends Model
                               'address_line2'=>$data['address2'],
                               'email_id'=>$data['business_emailId'],
                               'moblie'=>$data['business_mobile_no']]);
-        
+        if(!empty($off_array))
+        {
+
         foreach ($off_array as  $value) {
         
          DB::table('user_services_offered')->insertGetId(['market_profile_id'=>$market_profile_id,
                               'catalague_id'=>$value]);
 
         }
+
+        }
+
+        if(!empty($req_array)){
 
         foreach ($req_array as  $value) {
         
@@ -283,6 +291,8 @@ class Registration extends Model
 
         }
         
+        }
+
          DB::table('registrations')
         ->where('id',$data['registered_id'])
         ->update(array('buisness_info_id'=>$buss_info_id,'place_of_business'=>$data['business_place']));
@@ -306,6 +316,12 @@ class Registration extends Model
 
        return array('message'=>$message,'status'=>$status);
     }                        
+
+  }
+
+  public function getEmail($values){
+
+      return DB::table('lgtks_users')->where(array('activation_key'=>$values['key'],'id'=>$values['user_id']))->pluck('email_id');
 
   }
 

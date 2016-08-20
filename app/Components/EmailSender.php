@@ -25,13 +25,30 @@ class EmailSender {
         $storekey = $this->storeAuthkey($input[0]->id,$token);
         
         $registered_id = $input[0]->id;
-		        
+
         $config = ['view' => 'emails.registermail',
             'name' => $input[0]->first_name,
             'email' => $input[0]->email_id,
             'subject' => 'User Authentication'];
 
         return sendEmail($config, ['description' => 'http://localhost:8000/user_activation?key='.$token.'&registered_id='.$registered_id, 'email' => $input[0]->email_id , 'name' => $input[0]->first_name,'token'=>$token,'registered_id'=>$registered_id ]);
+        
+    }
+
+    
+
+    public function sendMailToUser($input) {
+        
+        $token = md5(uniqid(rand(),1));
+
+        $user_id = $this->storeuserAuthKey($input['email_id'],$token);
+        
+        $config = ['view' => 'emails.registermail',
+            'name' => $input['user_name'],
+            'email' => $input['email_id'],
+            'subject' => 'User Authentication'];
+
+        return sendEmail($config, ['description' => 'http://localhost:8000/new_user_activation?key='.$token.'&user_id='.$user_id, 'email' => $input['email_id'] , 'name' => $input['user_name'],'token'=>$token,'user_id'=>$user_id ]);
         
     }
 
@@ -42,5 +59,10 @@ class EmailSender {
 
     }
 
+    public function storeuserAuthKey($email_id,$token){
+
+        return DB::table('lgtks_users')->insertGetId(['email_id'=>$email_id,'activation_key'=>$token]);
+
+    }
 
 }

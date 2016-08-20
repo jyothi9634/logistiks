@@ -28,6 +28,7 @@ if (strlen($hashData) > 0) {
 <body onLoad="document.payment.submit();">
 <h3>Please wait, redirecting to process payment..</h3>
 <form action="<?php echo $ACTION_URL;?>" name="payment" method="POST">
+	
 <?php
 	foreach($_POST as $key => $value) {
 ?>

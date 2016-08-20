@@ -45,11 +45,11 @@
     </tr>
   @foreach($orderConfirmation as $Orders)
   <tr>
-    <td>{{$Orders->consignee_name}}</td>
+    <td>{{$Orders->name}}</td>
     <td>123456</td>
     <td>{{$Orders->from_loc}}</td>
     <td>{{$Orders->to_loc}}</td>
-    <td>{{date("Y-m-d", strtotime($Orders->consignment_pickup_date))}}</td>
+    <td>{{date("Y-m-d", strtotime($Orders->dispatch_dt))}}</td>
     <td>Road FTL</td>
     <td>{{$Orders->price}}</td>
     </tr>
@@ -92,3 +92,4 @@
 </div>
 <script src="/js/text-filed-1-shartcode.js"></script> 
 <script src="/js/buyerconfirm_files/main.js"></script>
+@stop

@@ -41,12 +41,13 @@
                                 <div class="row-1">
                                     <div class="cell-1">
                                         <ul>
-                                            <li><a href="#">HYD TO PUNE</a></li>
-                                            <li><a href="#">DISPATCH DATE</a></li>
-                                            <li><a href="#">DELIVERY DATE</a></li>
-                                            <li><a href="#">LOAD TYPE</a></li>
-                                            <li><a href="#">VEHICLE TYPE</a></li>
-                                            <li><a href="#">QUANTITY</a></li>
+                                            <li><a href="#">{{$data['from_loc']}} TO {{$data['to_loc']}}</a></li>
+                                            
+                                            <li><a href="#">DISPATCH DATE</a><br>{{dateFormateToDMY($data['dispatch_dt'])}}</li>
+                                            <li><a href="#">DELIVERY DATE</a><br>{{dateFormateToDMY($data['delivery_dt'])}}</li>
+                                            <li><a href="#">LOAD TYPE</a><br>{{$data['load_type']}}</li>
+                                            <li><a href="#">VEHICLE TYPE</a><br>{{$data['veh_type']}}</li>
+                                            <li><a href="#">QUANTITY</a><br>{{$data['qty']}}</li>
                                         </ul>
                                     </div>
                                     <div class="cell-1">
@@ -228,12 +229,12 @@
   <div id="messageModel" style="display:none;">
 
       <form method="post" action="/newMail" name="sendMessage" id="newMessage">
-<label for="firstname">FromAddress:</label> 		<input type="text" name="from_user_name" id="from_user_name" value=""><br/>
-<label for="surname">ToAddrss:</label> 	<input type="text" name="to_user_name" id="to_user_name"><br/>
+<label for="firstname">FromAddress:</label>         <input type="text" name="from_user_name" id="from_user_name" value=""><br/>
+<label for="surname">ToAddrss:</label>  <input type="text" name="to_user_name" id="to_user_name"><br/>
 <input type="hidden" name="to_email" id="to_email" value="">
 <input type="hidden" name="from_email" id="from_email" value="">
-<label for="mobile">Subject:</label> 	<input type="text" name="post_id" id="post_id"><br/>
-<label for="work">Body: </label>		<textarea id="messageDescription" placeholder="Body *" name="messageDescription" cols="50" rows="10"></textarea><br/>
+<label for="mobile">Subject:</label>    <input type="text" name="post_id" id="post_id"><br/>
+<label for="work">Body: </label>        <textarea id="messageDescription" placeholder="Body *" name="messageDescription" cols="50" rows="10"></textarea><br/>
 <br class="clear" />
 <br />
 <input type="submit" value="send" />

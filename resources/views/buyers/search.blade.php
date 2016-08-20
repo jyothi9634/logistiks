@@ -100,16 +100,28 @@ function allSelected() {
                 {!! Form::open(array('url' => 'buyer/srchPost')) !!}
                 <div class="grid-3">
                 <ul>
-                  <li><span class="input input-logistiks">
-                     {!! $errors->first('from_loc', 'From Location Mandatory Field') !!}
-                    <input class="animated-field animated-field-logistiks" type="text" id="from_loc" placeholder="From Location *" name="from_loc" required>
-                  <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="from_loc"> <span class="animated-label-content animated-label-content-logistiks"></span></label>
-                 </span></li>
-                <li><span class="input input-logistiks">
-                     {!! $errors->first('to_loc', 'To Location Mandatory Field') !!}
-                    <input class="animated-field animated-field-logistiks" type="text"  id="to_loc" placeholder="To Location *" name="to_loc" required>
-                  <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="to_loc"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
-                    </span></li>
+                  <li>{!! $errors->first('from_loc', 'From Location Mandatory Field') !!}
+                    <div class="select-box1 frm_loc">
+                    <select name="from_loc" id="from_loc" >
+                        <option >From Location*</option>
+                        <option value="A F Station Yelahanka S.O">A F Station Yelahanka S.O</option>
+                        <option value="Agram S.O">Agram S.O</option>
+                        <option value="Air Force Hospital S.O">Air Force Hospital S.O</option>
+                        <option value="Amruthahalli B.O">Amruthahalli B.O</option>
+                        <option value="Arabic College S.O">Arabic College S.O</option>
+                    </select>
+                    </div></li>
+                <li>{!! $errors->first('to_loc', 'To Location Mandatory Field') !!}
+                    <div class="select-box1 frm_loc">
+                    <select name="to_loc" id="to_loc">
+                        <option >To Location* </option>
+                        <option value="A F Station Yelahanka S.O">A F Station Yelahanka S.O</option>
+                        <option value="Agram S.O">Agram S.O</option>
+                        <option value="Air Force Hospital S.O">Air Force Hospital S.O</option>
+                        <option value="Amruthahalli B.O">Amruthahalli B.O</option>
+                        <option value="Arabic College S.O">Arabic College S.O</option>
+                    </select>
+                    </div></li>
                   <li>
             {!! $errors->first('dispatch_dt', 'Dispatch Date Mandatory Field') !!}
                    <input id="dispatch_dt" name="dispatch_dt" class="datepicker" placeholder="Dispatch Date* (Flex dates option)"   type="text" value="" required>
@@ -143,7 +155,7 @@ function allSelected() {
                   <li class="relative-ps">
                   <div class="uom">UoM</div>
                      <span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="qty" name="qty" required="required" placeholder="Quantity *">
+                    <input class="animated-field animated-field-logistiks" type="text" id="qty" name="qty"  placeholder="Quantity">
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
                     </span>
                   </li>

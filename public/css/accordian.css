@@ -84,14 +84,15 @@ ul#new-accordian-menu {
 #new-accordian-menu li ul {
 	display: none;
 	margin: 0px;
-	padding: 0px;
+	padding: 0px 0px 0px 10px;
 	list-style: none;
 	float: left;
 	width: 100%;
 	overflow: hidden;
+	
 }
 #new-accordian-menu li ul li a {
-	padding: 10px 10px !important;
+	padding: 10px 20px !important;
 	width: 100%;
 	color: #000;
 	margin: 0px;

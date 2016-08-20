@@ -19,7 +19,7 @@ $('.ratecard,#rate_card').hide();
       // Add Button Click Function
       $('#addroute').click(function () {
          var s = $('.frm_loc :selected').html();
-          alert(s);
+          
           var i = 0;
           if ($('.frm_loc :selected').text() == '') {
               $('.frm_loc :selected').siblings('span.error').css('visibility', 'visible');
@@ -104,7 +104,7 @@ $('.ratecard,#rate_card').hide();
                   $row.append($('<td align="left" valign="top"/><input type="hidden" name="jhveh_typ[]" value="'+val.veh_typ+'"/>').html(val.veh_type));
                   $row.append($('<td align="left" valign="top"/><input type="hidden" name="jhload_typ[]" value="'+val.load_typ+'"/>').html(val.load_type));
                   $row.append($('<td align="left" valign="top"/><input type="hidden" name="jhprice[]" value="'+val.price+'"/>').html(val.price));
-                  $row.append($('<td align="left" valign="top"/><input type="hidden" name="jhbuyer[]" value="0"/>').html('0')); 
+                  $row.append($('<td align="left" valign="top"/><input type="hidden" name="jhbuyer[]" value="2"/>').html('2')); 
 
 
 

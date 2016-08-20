@@ -16,5 +16,16 @@ class Login extends Model
         
         return $result;
    }
+
+   public function getInviteusers($user_id){
+
+   			$reg_id = DB::table('lgtks_users')->where('id',$user_id)->pluck('lgtks_registrations_id');
+   			
+   			return DB::table('buisness_informations as bus')
+   				   ->leftjoin('registrations as rg','rg.buisness_info_id','=','bus.id')
+   				   ->take(10)
+   				   ->get();
+
+   }
    
 }

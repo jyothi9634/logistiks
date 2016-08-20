@@ -14,7 +14,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
-//use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use Illuminate\Support\Facades\Input;
@@ -30,11 +30,6 @@ use App\Http\Controllers\Controller;
 use App\Models\BuyerSearch;
 use App\Components\BuyerSearchComponent;
 use App\Components\SellerPostComponent;
-use App\Components\EmailHelper;
-use App\Components\EmailSender;
-use App\Components\Helper;
-use Validator;
-
 
 class BuyerSearchController extends BaseController {
    
@@ -56,9 +51,8 @@ class BuyerSearchController extends BaseController {
     public function index() {
         
         $data = SellerPostComponent::GetData();
-        $message ="";
-		$inputData=array();
-        return view('buyers.search', ['data' => $data,'message'=>$message,'inputData'=>$inputData]);
+        
+        return view('buyers.search', ['data' => $data]);
        
     }
     
@@ -69,38 +63,43 @@ class BuyerSearchController extends BaseController {
      */
 
     public function buyerSearch() {
-        try {           
-            $inputData = Input::all();
-			$data = SellerPostComponent::GetData();
-			$validator = Validator::make($inputData,[
-						'from_loc' => 'required',
-						'to_loc' => 'required',
-						'dispatch_dt' => 'required',
-						'delivery_dt' => 'required',
-						'load_type' => 'required',
-						'veh_type' => 'required'
-					
-			]);
-			if ($validator->fails ()) {
-				//echo "ur in validator page";
-				
-				   	 return Redirect::to('buyer/search' )->withErrors($validator)->withInput();
-					
+
+        try {
+                       
+            $data = Input::all();
+            
+            /* $data = [ 'from_loc' => 'Adilabad', //1
+                'to_loc' => 'Adilabad', //2
+                'dispatch_dt' => '2016-08-06 00:00:00',
+                'delivery_dt' => '2016-08-10 00:00:00',
+                'load_type' => '2',
+                'qty' => '1',  
+                'veh_type' => '1',
+                'vehicle_dimensions' => '20x8x12',
+            ];*/
+
+
+            if ($data != NULL) {
+                
+                $data['searchType'] = "noramlSearch";
+
+                if ($data['from_loc'] != NULL && $data['to_loc'] != NULL && $data['dispatch_dt'] != NULL && $data['delivery_dt'] != NULL && $data['load_type'] != NULL && $data['veh_type'] != NULL) {
+                    
+                    $BuyerSearchResult = BuyerSearchComponent::SellerPosts($data);
+                                                                                                                             
+                    return view('buyers.ftlSearchList',['searchResults'=>$BuyerSearchResult]);
+
+                }
             } else {
-                    $inputData['searchType'] = "noramlSearch";
-                    $BuyerSearchResult = BuyerSearchComponent::SellerPosts($inputData);
-                    if(is_array($BuyerSearchResult))	{			
-                    return view('buyers.ftlSearchList',['searchResults'=>$BuyerSearchResult,'data'=>$inputData]);
-					} else{
-					return view('buyers.ftlSearchList',['searchResults'=>$BuyerSearchResult,'data'=>$inputData]);	
-					}
+                
+                $message = "No Records Found";
             }
-		
         } catch (Exception $ex) {
-             echo "in the exception";
-	
-            return Redirect::to ( 'buyer/search' )->withInput(['data',$data])->withErrors(array('message' => 'Some thing went wrong. Please try again!!'));
+
+            $message = $ex->getMessage();
         }
+           
+        return $message;
     }
     
 
@@ -114,7 +113,22 @@ class BuyerSearchController extends BaseController {
         
         return $buyerSearchResult;
     }
- 
+    
+    public function getUserDeatils(Request $request) {
+
+        $inputs = $request->all();
+        
+        return $this->user->getUserDetails($inputs);
+
+    }
+    
+    public function newMail() {
+
+        $inputs = Input::all();
+        $this->emailsender->sendMailToSeller($inputs);
+    
+    }
+
     /*
      * Method Name :BookNow
      * Purpose : Redirect to BuyerBookNow View page
@@ -226,29 +240,6 @@ class BuyerSearchController extends BaseController {
 
             return $ex->getMessage();
         
-        }
-    }
-	
-	   public function getUserDeatils(Request $request) {
-        $inputs = $request->all();
-        
-        return $this->user->getUserDetails($inputs);
-    }
-    
-    public function newMail() {
-        $inputs = Input::all();
-        $inputs['datetime'] = date("Y-m-d h:i:sa");
-        $inputs['buyer_seller_flag'] = 1;
-        
-        //$inputs['message_from'] = Auth::user()->id;
-        $inputs['message_from'] = 2;
-        if(count($inputs)>0) {
-            $this->postIntraction->savePostIntractions($inputs);
-            try{
-                $this->emailsender->sendMailToSeller($inputs);
-            } catch(Exception $e) {
-                return $e->getMessage();
-            }
         }
     }
     

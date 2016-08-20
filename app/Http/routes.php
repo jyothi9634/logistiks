@@ -14,6 +14,7 @@
 Route::any('memberRegistration','RegistrationController@index');
 Route::any('memberRegistration/privacyPolicy','RegistrationController@privacyPolicy');
 Route::any('memberRegistration/termsOfuse','RegistrationController@termsOfuse');
+Route::any('memberRegistration/cancellationPolicy','RegistrationController@cancellationPolicy');
 
 Route::any('registration/store','RegistrationController@store');
 //Route::any('individualRegistration','RegistrationController@indvReg');
@@ -32,8 +33,11 @@ Route::any('/checkAuth','LoginController@checkAuth');
 Route::any('dashboard','LoginController@dashboard');
 Route::any('/forgotPassword','LoginController@forgotPassword');
 Route::any('/sendMail','LoginController@sendMail');
+Route::any('/inviteUser','LoginController@inviteUser');
+
 Route::any('/user_activation','RegistrationController@userActivation');
-Route::any('paymentPost','PaymentPostController@paymentPost');
+Route::any('/new_user_activation','RegistrationController@newuserActivation');
+Route::any('paymentPost/{buyer_user_id}','PaymentPostController@paymentPost');
 Route::any('paymentResponse','PaymentPostController@paymentResponse');
 Route::any('paymentConfirm','PaymentPostController@paymentConfirm');
 Route::any('paymentForBook','PaymentPostController@paymentForBook');
@@ -47,9 +51,11 @@ Route::any('thankYouOrder','PaymentPostController@thankYouOrder');
 
 
 
+
 Route::any('logistiks/Buyersearch','LogistiksController@buyerSearch');
 
 Route::any('/buyer/search' ,'BuyerSearchController@index');  
+
 Route::any('/buyer/srchPost' ,'BuyerSearchController@buyerSearch');  
 Route::any('/buyer/bookNow/{seller_user_id}/{post_id}' ,'BuyerSearchController@bookNow');  
 Route::any('/buyer/Cart/{buyer_user_id}/{seller_user_id}/{post_id}' ,'BuyerSearchController@Cart');  

@@ -33,10 +33,10 @@
   </tr>
   @foreach($cart_data as $data)
   <tr>
-    <td>{{$data->consignor_name}}</td>
+    <td>{{$data->name}}</td>
     <td>{{$data->from_loc}}</td>
     <td>{{$data->to_loc}}</td>
-    <td>{{date("Y-m-d", strtotime($data->consignment_pickup_date))}}</td>
+    <td>{{date("Y-m-d", strtotime($data->dispatch_dt))}}</td>
     <td>Road FTL</td>
     <td>{{$data->price}}</td>
     <!-- <td><a href="/buyer/deleteOrder/{{$seller_id}}/{{$buyer_id}}/{{$post_id}}/{{$data->id}}"><img src="/images/delete-1.png" width="20" height="21" alt="delete"></a></td> -->

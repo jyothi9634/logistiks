@@ -87,12 +87,12 @@ For this transaction from Hyderabad to Chennai the buyer has to give the followi
 </ul>
       </div>        
           <div class="text-right">
-              <form method="post" action="/paymentPost" name="subscription" id="subscription">
+              <form method="post" action="/paymentPost/<?php echo $buyer_id;?>" name="subscription" id="subscription">
              
-                <input type="hidden" name="amount" value="4000"  class="css-radiobtn">
+                <input type="hidden" name="amount" value="{{$price}}"  class="css-radiobtn">
                 <input name="account_id" type="hidden" value="20150"/>
                 <input name="secretkey" type="hidden" value="209b9b0bffc0ddafbbd0047a892b9dd3" size="35"/>
-                <input name="return_url" type="hidden" size="60" value="http://<?php echo $_SERVER['SERVER_NAME']; ?>/paymentBookResponse" />
+                <input name="return_url" type="hidden" size="60" value="http://localhost:8000/paymentBookResponse" />
                 <input name="channel" type="hidden"  value="10" />
                 <input name="reference_no" type="hidden" value="<?php echo time();?>" />
                 <input name="currency" type="hidden" value="INR" />

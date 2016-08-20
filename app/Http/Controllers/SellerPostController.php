@@ -7,28 +7,62 @@ use App\Http\Controllers\Controller;
 use App\Models\Seller;
 use App\Components\SellerPostComponent;
 use Redis;
+use Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 
 class SellerPostController extends Controller{
     public function index(){
-        
+
         $data =SellerPostComponent::GetData();
         $session_id = Session::get('user_id');
         $seller = SellerPostComponent::SellerSession($session_id);
         
+        foreach ($data['pincodeData'] as $key => $value) {
+          
+          # code...
+        }
         Session::put('seller_buyer_flag',$seller[0]->seller_buyer_flag);  
         Session::put('name',$seller[0]->name);  
+        
+        
 
-        return view('SellerRateCard',['data'=>$data]);
+        return view('Seller.SellerRateCard',['data'=>$data]);
     }
         
   public function check(Request $request){ 
+
+//       try {           
+//            $inputData = Input::all();
+//			$data = SellerPostComponent::GetData();
+//			$validator = Validator::make($inputData,[
+//						'frm_loc' => 'required'
+////						'to_loc' => 'required',
+////						'dispatch_dt' => 'required',
+////						'delivery_dt' => 'required',
+////						'load_type' => 'required',
+////						'veh_type' => 'required'
+//					
+//			]);
+//			if ($validator->fails ()) {
+//				//echo "ur in validator page";
+//				   	 return Redirect::to('SellerRateCard' )->withErrors($validator)->withInput();
+//					
+//            } else {
+//                    
+//            }
+//		
+//        } catch (Exception $ex) {
+//             echo "in the exception";
+//			 die();
+//            return Redirect::to('SellerRateCard' )->withInput(['data',$data])->withErrors(array('message' => 'Some thing went wrong. Please try again!!'));
+//        }
+//      
       // if the user directly posts only rate card without add routes
      if(empty($_POST['jhfrm_loc']) || empty($_POST['jhto_loc']) || empty($_POST['jhveh_typ']) || empty($_POST['jhload_typ']) || empty($_POST['jhprice']) || empty($_POST['jhbuyer'])){
-                    
-
-
+         
                     if($request->input('post_title') != NULL){
                        $title        = $request->input('post_title');
                     }else{
@@ -103,9 +137,9 @@ class SellerPostController extends Controller{
                     }else{
                         return false;
                     }
-                      
+                
                      $post        = $request->input('checkbox_5'); 
-                      
+                    print_r($post);
 //                        $title        = $request->input('post_title');
 //                        $frm_loc      = $request->input('frm_loc');
 //                        $to_loc       = $request->input('to_loc');
@@ -142,19 +176,14 @@ class SellerPostController extends Controller{
            $crid_day=$_POST['crid_day']; 
              
           for($j=0;$j<count($disc_name);$j++){
-            
-
           $nextdata[$j]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>$to_loc,'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j]];  
            }  
          }
-                      
-        $session_id = Session::get('user_id');
-
-        $data=['user_id'=>$session_id,'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>'2','dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$load_typ,'veh_type'=>$veh_typ,'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$price,'transit_days'=>$transit_days,'payment_term'=>'1','created_on'=>date("Y-m-d"),'tracking_type'=>$tracking,'contract_type'=>'1','seller_buyer_flag'=>'0','private_public_flag'=>'0'];
-        
-        if($data != NULL){
-           return SellerPostComponent::SellerComponent($data,$nextdata,$session_id);
-           return Redirect::to('/buyer/search');
+                              
+        $data=['user_id'=>'1','title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>'2','dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$load_typ,'veh_type'=>$veh_typ,'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$price,'transit_days'=>$transit_days,'payment_term'=>'1','created_on'=>date("Y-m-d"),'tracking_type'=>$tracking,'contract_type'=>'1','seller_buyer_flag'=>'0','private_public_flag'=>'0'];
+                
+         if($data != NULL){
+           SellerPostComponent::SellerComponent($data,$nextdata);
          }else{
               return redirect()->back();
           }
@@ -179,7 +208,8 @@ class SellerPostController extends Controller{
          }
          if($request->input('dispatch_dt') != NULL){
              $dispatch_dt        = $request->input('dispatch_dt');
-             $dispatch           = date('Y-m-d', strtotime($dispatch_dt));
+             $dispatch = date('Y-m-d', strtotime($dispatch_dt));
+             
            }else{
               return false;
             }
@@ -231,10 +261,8 @@ class SellerPostController extends Controller{
             $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$frm_loc,'to_loc'=>$to_loc,'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j]];  
             } 
          }
-         
-         $session_id = Session::get('user_id');
-
-         SellerPostComponent::SellerComponent($data,$nextdata,$session_id);
+          
+         SellerPostComponent::SellerComponent($data,$nextdata);
      }
       
     }
@@ -258,9 +286,9 @@ class SellerPostController extends Controller{
     
     
     public function PostMasterView($id){  
-     $data =SellerPostComponent::PostMData($id);
-	 return view('PostMasterBook',compact('data'));   
-   } 
+         $data =SellerPostComponent::PostMData($id);
+         return view('PostMasterBook',compact('data'));   
+    } 
    
    
     public function PostMasterInsert(Request $request){  
@@ -455,5 +483,25 @@ class SellerPostController extends Controller{
      } 
 	
   }
+    
+    
+      public function SellerEnquiries($user_id){
+        $data =SellerPostComponent::GetSellerOffers($user_id);
+        return view('Seller.SellerEnquiries',['data'=>$data]);
+    }
+    
+    
+     public function send_funct(Request $request){
+	    $message=$request->text_msg;
+	    $message_from=$request->from_id;
+		$message_to=$request->to_id;
+		$message_subject=$request->msg_sub;
+		$message_type=$request->msg_type;
+		$order_id=$request->order_id;
+		$read_staus=0;
+	   $data = ['datetime'=>date('Y-m-d'),'created_on'=>date('Y-m-d'),'message'=>$message,'message_from'=>$message_to,'message_to'=>$message_from,'message_subject'=>$message_subject,'message_type'=>$message_type,'order_id'=>$order_id,'read_staus'=>$read_staus];
+	   SellerPostComponent::send_funct($data);
+	}
+
   
 }

@@ -44,10 +44,12 @@ class BuyerSearchController extends BaseController {
      * 
      */
     
-    public function __construct(BuyerSearch $BuyerSearch){
+       public function __construct(BuyerSearch $BuyerSearch,BuyerSearchComponent $buyerSearchComponent){
         
         $this->buyer = $BuyerSearch;
+        $this->buyerSearchComponent = $buyerSearchComponent;
     }
+    /*
     /*
      * Method Name :Index
      * Purpose : Redirection to Buyer Search View
@@ -96,7 +98,13 @@ class BuyerSearchController extends BaseController {
             } else {
                     $inputData['searchType'] = "noramlSearch";
                     $BuyerSearchResult = BuyerSearchComponent::SellerPosts($inputData);
+                    $loadType = $this->buyerSearchComponent->getLoadType($inputData);
                     
+                    $vehicleType = $this->buyerSearchComponent->getVehType($inputData);
+                    
+                    $inputData['load_type'] = $loadType->load_type;
+                    $inputData['veh_type'] = $vehicleType->vehicle_type;
+
                     if(is_array($BuyerSearchResult))	{			
                     return view('buyers.ftlSearchList',['searchResults'=>$BuyerSearchResult,'data'=>$inputData]);
 					} else{
@@ -115,7 +123,7 @@ class BuyerSearchController extends BaseController {
      public function buyerFtlFilter() {
 
         $filterInputs = Input::all();
-        
+        print_r($filterInputs);exit;
         $filterInputs['searchType'] = "advancedFilter";
         
         $buyerSearchResult = BuyerSearchComponent::SellerPosts($filterInputs);
@@ -138,7 +146,9 @@ class BuyerSearchController extends BaseController {
             
             $buyer_booknow_details = $this->buyer->buyerBooknow($seller_user_id);
             
-            return view('Buyers.booknow',['data'=>$seller_post_details,'buyer_booknow_details'=>$buyer_booknow_details,'buyer_user_id'=>$buyer_id,'seller_user_id'=>$seller_user_id,'post_id'=>$post_id]);
+            $buyer_details = $this->buyer->buyerInfo($buyer_id);
+
+            return view('Buyers.booknow',['data'=>$seller_post_details,'buyer_booknow_details'=>$buyer_booknow_details,'buyer_user_id'=>$buyer_id,'seller_user_id'=>$seller_user_id,'post_id'=>$post_id,'buyer_details'=>$buyer_details]);
             
         
         } catch (Exception $ex) {
@@ -153,6 +163,8 @@ class BuyerSearchController extends BaseController {
             $buyerCartDetails = Input::all();
             
             $getCart = $this->buyer->getcartDetails($buyer_user_id,$buyerCartDetails,$seller_id,$post_id);
+            
+            
             
             $total_sum = 0;
                             
@@ -183,7 +195,18 @@ class BuyerSearchController extends BaseController {
             
             $getGsadetails = $this->buyer->getGsadetails($buyer_id,$seller_id);
 
-            return view('Buyers.buyergsa',['buyer_gsa'=>$getGsadetails]);
+            $buyerconfirmorders = $this->buyer->getOrders($buyer_id);
+
+            $total_sum = 0;
+            
+            foreach($buyerconfirmorders as $value){
+                
+                $total_sum = $total_sum + $value->price;
+                                            
+            }  
+
+
+            return view('Buyers.buyergsa',['buyer_gsa'=>$getGsadetails,'buyer_id'=>$buyer_id,'price'=>$total_sum]);
             
         }
         catch(Exception $ex){
@@ -196,6 +219,8 @@ class BuyerSearchController extends BaseController {
         try{
 
             $buyerconfirmorders = $this->buyer->getOrders($buyer_id);
+            
+            $updateOrder = $this->buyer->updateOrder($buyerconfirmorders,$buyer_id);
 
             $total_sum = 0;
             
@@ -204,7 +229,7 @@ class BuyerSearchController extends BaseController {
                 $total_sum = $total_sum + $value->price;
                                             
             }      
-
+            
             return view('Buyers.buyerconfirm',['orderConfirmation'=>$buyerconfirmorders,'total_sum'=>$total_sum]);
 
         }

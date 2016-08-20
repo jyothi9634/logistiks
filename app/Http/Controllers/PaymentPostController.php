@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use DB;
 
 
 class PaymentPostController extends Controller 
 {
     
-    public function paymentPost() {
+    public function paymentPost($buyer_id) {
+        
+        Session::put('buyer_id',$buyer_id);
+
         return view('paymentPost');
     }
     
@@ -22,9 +26,17 @@ class PaymentPostController extends Controller
     }
 
     public function paymentBookResponse() {
-        return view('paymentBookResponse');
+
+        $buyer_id = Session::get('buyer_id');
+
+        $confirm = "/buyer/buyerConfirmation/".$buyer_id;
+
+        return Redirect::to($confirm);
+
+        
     }
     public function paymentResponse() {
+        
         return view('paymentResponse');
     }
     public function thankYouOrder() {

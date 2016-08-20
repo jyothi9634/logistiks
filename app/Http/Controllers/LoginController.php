@@ -33,6 +33,7 @@ use App\Models\Login;
 
 
 
+
 class LoginController extends Controller
 {
  /*
@@ -101,14 +102,12 @@ class LoginController extends Controller
       return view('forgotpassword');
   }
 
-  public function sendMail(Request $request){
+  public function sendMail(){
       try{
 
-            $this->validate($request,['email_id'=>'required|email:true']);
-
-            $inputs = Input::get('email_id');
-
-            return $this->sendemail->sendMailToSeller($inputs);
+            $inputs = Input::all();
+            
+            return $this->sendemail->sendMailToUser($inputs);
 
 
           }
@@ -117,6 +116,16 @@ class LoginController extends Controller
           return $ex->getMessage();
          
          }
+
+  }
+
+  public function inviteUser(){
+
+      $session_id = Session::get('user_id');
+
+      $getInviteusers = $this->login->getInviteusers($session_id);
+
+      return view('inviteuser',['getInviteusers'=>$getInviteusers]);
 
   }
 

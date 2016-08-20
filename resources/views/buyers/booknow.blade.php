@@ -67,14 +67,13 @@
                   <td width="12%">LOAD TYPE</td>
                   <td width="12%">VEHICLE TYPE</td>
                   <td width="12%">QUANTITY</td>
-                  <td align="right">Views 7</td>
                 </tr>
                 @foreach($data as $value)  
                 <tr>
-                  <td height="30" valign="middle"><span>{{$value->user_name}}</span></td>
+                  <td height="30" valign="middle"><span>{{$value->name}}</span></td>
                   <td valign="middle"><span>{{$value->from_loc.'--'.$value->to_loc}}</span></td>
-                  <td valign="middle"><span>{{$value->dispatch_dt}}</span></td>
-                  <td valign="middle"><span>{{$value->delivery_dt}}</span></td>
+                  <td valign="middle"><span>{{dateFormateToDMY($value->dispatch_dt)}}</span></td>
+                  <td valign="middle"><span>{{dateFormateToDMY($value->delivery_dt)}}</span></td>
                   <td valign="middle"><span>{{$value->load_type}}</span></td>
                   <td valign="middle"><span>{{$value->veh_type}}</span></td>
                   <td valign="middle"><span>{{$value->qty}}</span></td>
@@ -106,6 +105,7 @@
             </div>
 
   {!! Form::open(array('url' => 'buyer/Cart'.'/'.$buyer_user_id.'/'.$seller_user_id.'/'.$post_id,'id'=>'formId')) !!}  
+
     <div class="column-1 field-main">
               <div class="grid-3">
                 <ul>
@@ -158,11 +158,10 @@
                  </li>
                   <li>
                   <div class="select-box1">
-                      <select name="cons_value" id="cons_value">
-                        <option value="one">Consignment Value*</option>
-                        <option value="two">two</option>
-                        <option value="three">three</option>
-                      </select>
+                      
+                    <input class="animated-field animated-field-logistiks" type="text" id="cons_value" name="cons_value"  placeholder="Consignment Value">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
+                    
                     </div>
                  </li>
                 </ul>
@@ -174,7 +173,7 @@
             <div class="column-2">
       <h4>Consignor Details</h4>
                 
-                @foreach($buyer_booknow_details['user_details'] as $user_details)
+                @foreach($buyer_details as $user_details)
                 <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
@@ -245,18 +244,18 @@
                 <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_name" name="buyer_name" required="required">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Name*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_name" name="buyer_name" placeholder="Name*" required="required">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_mobile_number" name="buyer_mobile_number" required="required">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Mobile Number*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_mobile_number" name="buyer_mobile_number" placeholder="Mobile Number*" required="required">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_email_id" name="buyer_email_id" required>
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">E Mail*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_email_id" name="buyer_email_id" placeholder="E Mail*" required>
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                 </ul>
               </div>
@@ -264,18 +263,18 @@
               <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address1" name="buyer_address1" required="required">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Address 1*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address1" name="buyer_address1" placeholder="Address 1*" required="required">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address2" name="buyer_address2">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Address 2</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address2" name="buyer_address2" placeholder="Address 2">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address3" name="buyer_address3">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Address 3</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address3" name="buyer_address3" placeholder="Address 3">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
                     </span></li>
                 </ul>
               </div>
@@ -283,18 +282,18 @@
               <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_pincode" name="buyer_pincode" required="required">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Pincode*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_pincode" name="buyer_pincode" placeholder="Pincode*" required="required">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_city"  name="buyer_city" required="required">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">City*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_city"  name="buyer_city" placeholder="City*" required="required">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_state" name="buyer_state" required="required">
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">State*</span> </label>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_state" name="buyer_state" placeholder="State*" required="required">
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
                     </span></li>
                 </ul>
               </div>
@@ -365,7 +364,7 @@
                   <td align="right" valign="middle"></td>
                   <td width="250" align="right" valign="middle">
                   <?php echo Form::submit('ADD TO CART',array('class' => 'button-red-1')); ?>
-                  <a href="/buyer/buyerGsa/1/1" class="button-red-1">CHECK OUT</a>
+                  <a href="/buyer/buyerGsa/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>" class="button-red-1">CHECK OUT</a>
                   </td>
                 </tr>
               </tbody></table>
@@ -474,24 +473,13 @@
 <script src="/js/text-filed-1-shartcode.js"></script> 
 <script src="/js/main.js"></script>
 <script>
+
 // Get the modal
 $(document).ready(function () {
 
 
-$('#formId').validate({ 
-        //alert($("#id_proof").val());
-        rules: {
 
-        buyer_email_id: {
-                required: true,
-                email:true
-              },
-                        
-        /*     
-        submitHandler: function (marketformId) {
-            return false;
-        }*/
-    });
+
 
 });
 
@@ -522,6 +510,8 @@ window.onclick = function(event) {
     }
 }
 }
+
+
 $(function() {
     var month = (new Date).getMonth();
     var year = (new Date).getFullYear();
@@ -529,6 +519,34 @@ $(function() {
     $( "#invoice_date" ).datepicker({
         maxDate: new Date(year, month , 31)
     });
+});
+
+ $('#buyer_pincode').blur(function(){
+      
+      var pincode = $('#buyer_pincode').val();
+      
+
+  $.ajax
+        (
+          {
+            url: '/getlocationdetails',
+            type: "GET", 
+            data: "pincode=" + pincode,
+            success: function(result)
+            {
+                 
+               $('#buyer_city').val(result[0].division_name);
+               $('#buyer_state').val(result[0].state_name);
+
+               
+            },
+            error:function()
+            {
+              //console.log("AJAX request was a failure");
+            }   
+          }
+        );
+
 });
 
 

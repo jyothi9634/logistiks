@@ -157,6 +157,21 @@ class RegistrationController extends BaseController
 
   }
 
+  public function newuserActivation(){
+
+
+     $inputs = Input::all();
+
+     $getemail = $this->register->getEmail($inputs);
+
+     $status = 0;
+     
+     return view('memberRegistration')->with(['status'=>$status,'new_email_id'=>$getemail]);
+      
+
+      
+  }
+
   public function marketplaceRegistration($registered_id){
 
       $registration_details = $this->register->regDetails($registered_id);
@@ -221,6 +236,12 @@ class RegistrationController extends BaseController
   public function termsOfuse(){
 
       return view('termsOfuse');
+
+  }
+
+  public function cancellationPolicy(){
+
+      return view('cancellationPolicy');
 
   }
 

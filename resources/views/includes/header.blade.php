@@ -23,8 +23,8 @@
 
 
 <!--[if lt IE 9]>
-	<script src="../js/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="../js/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 
 </head>
@@ -71,6 +71,7 @@
       </div>
     </div>
   </div>
+
   <div class="menu">
     <div class="wrapper-1">
         <div class="tbl-1">
@@ -102,4 +103,5 @@
         </div>
     </div>
 </div>
+
 </header>

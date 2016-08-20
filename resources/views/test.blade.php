@@ -216,7 +216,7 @@
     <div id="tabs-2" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
       <div class="registration-tabmenu">
         <ul role="tablist" class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-          <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="false" aria-expanded="false" id="tab-1" onclick="getPaging(this.id)"><a href="http://psmprojects.net/logistiks/ver8/registration/Registration-Individual-4.html#tabs-1" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-1">Services offered</a></li>
+          <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="false" aria-expanded="false" id="tab-1" onclick="getPaging(this.id)"><a href="#tabs-1" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-1">Services offered</a></li>
           <li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active" aria-controls="tabs-2" aria-labelledby="ui-id-2"  aria-selected="true" aria-expanded="true" id="tab-2" onclick="getPaging(this.id)"><a href="#tabs-2" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-2">Services required</a></li>
           <li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false" id="tab-3" onclick="getPaging(this.id)"><a href="#tabs-3" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Product offered</a></li>
           <li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-4" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false" id="tab-4" onclick="getPaging(this.id)"><a href="#tabs-4" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-4">Product required</a></li>
@@ -227,59 +227,18 @@
         
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ri-table-3">
           <tbody>
-            <tr>
-              <td>
             <h4>Transportation</h4>
-          </td>
-           <td>
-            <h4>Vehicle</h4>
-          </td>
-          <td>
-            <h4>Relocation</h4>
-          </td>
-          </tr>
             <tr>
-
               <td><b>Road</b></td>
-              <td><b>Vehicle_type</b></td>
-              <td><b>Home</b></td>
-              <td><b>Office</b></td>
-
-
-            <tr>
             <td>
-              @foreach($getservices as $service_value)
+           @foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Road") 
             <input type="checkbox" name="off_road{{$service_value->sub_type_1}}" id="off_road{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
             <label for="req_road" >{{$service_value->sub_type_1}}</label>
             <br>
            @endif
            @endforeach</td>
-           <td> @foreach($getservices as $service_value)
-           @if($service_value->type == "Vehicle" && $service_value->sub_type == "Vehicle_type") 
-            <input type="checkbox" name="off_veh{{$service_value->sub_type_1}}" id="off_veh{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
-            <label for="off_veh" >{{$service_value->sub_type_1}}</label>
-              <br>
-           @endif
-           @endforeach</td>
-           <td>@foreach($getservices as $service_value)
-           @if($service_value->type == "Relocation" && $service_value->sub_type == "Home") 
-            <input type="checkbox" name="req_relocation{{$service_value->sub_type_1}}" id="req_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
-            <label for="req_relocation" >{{$service_value->sub_type_1}}</label>
-              <br>
-           @endif
-           @endforeach</td>
-           
-           <td> @foreach($getservices as $service_value)
-           @if($service_value->type == "Relocation" && $service_value->sub_type == "Office") 
-            <input type="checkbox" name="req_relocation{{$service_value->sub_type_1}}" id="req_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
-            <label for="req_relocation" >{{$service_value->sub_type_1}}</label>
-              <br>
-           @endif
-           @endforeach</td>
-         </tr>
            <td><b>Rail</b></td>
-           <tr>
             <td>@foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Rail") 
             <input type="checkbox" name="off_rail{{$service_value->sub_type_1}}" id="off_rail{{$service_value->id}}" value="{{$service_value->id}}">&nbsp;
@@ -287,9 +246,7 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
            <td><b>Ocean</b></td>
-           <tr>
             <td>@foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Ocean") 
             <input type="checkbox" name="off_ocean{{$service_value->sub_type_1}}" id="off_ocean{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
@@ -297,9 +254,7 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
            <td><b>Air</b></td>
-           <tr>
             <td>@foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Air") 
             <input type="checkbox" name="off_air{{$service_value->sub_type_1}}" id="off_air{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
@@ -307,11 +262,9 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
           </tr>
           <tr>
             <td><b>Intracity</b></td>
-            <tr>
             <td>  @foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Intracity") 
             <input type="checkbox" name="off_intracity{{$service_value->sub_type_1}}" id="off_intracity{{$service_value->id}}" value="{{$service_value->id}}">&nbsp;
@@ -319,9 +272,7 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
            <td><b>Courier</b></td>
-           <tr>
             <td> @foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Courier") 
             <input type="checkbox" name="off_courier{{$service_value->sub_type_1}}" id="off_courier{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
@@ -329,71 +280,71 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
           </tr>
-         
+          <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td></tr>
+          <tr><td><h4>Vehicle</h4></td></tr>
+          <tr>
+            
+            <td><b>Vehicle_type</b></td>
+            <td> @foreach($getservices as $service_value)
+           @if($service_value->type == "Vehicle" && $service_value->sub_type == "Vehicle_type") 
+            <input type="checkbox" name="off_veh{{$service_value->sub_type_1}}" id="off_veh{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
+            <label for="off_veh" >{{$service_value->sub_type_1}}</label>
+              <br>
+           @endif
+           @endforeach</td>
+
+          </tr>
+          </tr>
+          <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td></tr>
+          <tr><td><h4>Relocation</h4></td></tr>
+          
+          <tr>
+            
+          <td><b>Home</b></td>
+          <td>@foreach($getservices as $service_value)
+           @if($service_value->type == "Relocation" && $service_value->sub_type == "Home") 
+            <input type="checkbox" name="off_relocation{{$service_value->sub_type_1}}" id="off_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
+            <label for="off_relocation" >{{$service_value->sub_type_1}}</label>
+              <br>
+           @endif
+           @endforeach</td>
+           <td><b>Office</b></td>
+          <td> @foreach($getservices as $service_value)
+           @if($service_value->type == "Relocation" && $service_value->sub_type == "Office") 
+            <input type="checkbox" name="off_relocation{{$service_value->sub_type_1}}" id="off_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
+            <label for="off_relocation" >{{$service_value->sub_type_1}}</label>
+              <br>
+           @endif
+           @endforeach</td>
+           </tr>
 
 
          </tbody></table>
       </div>
-       <div class="registration-content ui-tabs-panel ui-corner-bottom ui-widget-content" id="tabs-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false">
+      <div class="registration-content ui-tabs-panel ui-corner-bottom ui-widget-content" id="tabs-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false">
         <h3>Services Required</h3>
         
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ri-table-3">
           <tbody>
-            <tr>
-              <td>
             <h4>Transportation</h4>
-          </td>
-           <td>
-            <h4>Vehicle</h4>
-          </td>
-          <td>
-            <h4>Relocation</h4>
-          </td>
-          </tr>
             <tr>
-
               <td><b>Road</b></td>
-              <td><b>Vehicle_type</b></td>
-              <td><b>Home</b></td>
-              <td><b>Office</b></td>
-
-
-            <tr>
             <td>
-              @foreach($getservices as $service_value)
+           @foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Road") 
             <input type="checkbox" name="req_road{{$service_value->sub_type_1}}" id="req_road{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
             <label for="req_road" >{{$service_value->sub_type_1}}</label>
             <br>
            @endif
            @endforeach</td>
-           <td> @foreach($getservices as $service_value)
-           @if($service_value->type == "Vehicle" && $service_value->sub_type == "Vehicle_type") 
-            <input type="checkbox" name="req_veh{{$service_value->sub_type_1}}" id="req_veh{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
-            <label for="req_veh" >{{$service_value->sub_type_1}}</label>
-              <br>
-           @endif
-           @endforeach</td>
-           <td>@foreach($getservices as $service_value)
-           @if($service_value->type == "Relocation" && $service_value->sub_type == "Home") 
-            <input type="checkbox" name="req_relocation{{$service_value->sub_type_1}}" id="req_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
-            <label for="req_relocation" >{{$service_value->sub_type_1}}</label>
-              <br>
-           @endif
-           @endforeach</td>
-           
-           <td> @foreach($getservices as $service_value)
-           @if($service_value->type == "Relocation" && $service_value->sub_type == "Office") 
-            <input type="checkbox" name="req_relocation{{$service_value->sub_type_1}}" id="req_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
-            <label for="req_relocation" >{{$service_value->sub_type_1}}</label>
-              <br>
-           @endif
-           @endforeach</td>
-         </tr>
            <td><b>Rail</b></td>
-           <tr>
             <td>@foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Rail") 
             <input type="checkbox" name="req_rail{{$service_value->sub_type_1}}" id="req_rail{{$service_value->id}}" value="{{$service_value->id}}">&nbsp;
@@ -401,9 +352,7 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
            <td><b>Ocean</b></td>
-           <tr>
             <td>@foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Ocean") 
             <input type="checkbox" name="req_ocean{{$service_value->sub_type_1}}" id="req_ocean{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
@@ -411,9 +360,7 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
            <td><b>Air</b></td>
-           <tr>
             <td>@foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Air") 
             <input type="checkbox" name="req_air{{$service_value->sub_type_1}}" id="req_air{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
@@ -421,11 +368,9 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
           </tr>
           <tr>
             <td><b>Intracity</b></td>
-            <tr>
             <td>  @foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Intracity") 
             <input type="checkbox" name="req_intracity{{$service_value->sub_type_1}}" id="req_intracity{{$service_value->id}}" value="{{$service_value->id}}">&nbsp;
@@ -433,9 +378,7 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
            <td><b>Courier</b></td>
-           <tr>
             <td> @foreach($getservices as $service_value)
            @if($service_value->type == "Transportation" && $service_value->sub_type == "Courier") 
             <input type="checkbox" name="req_courier{{$service_value->sub_type_1}}" id="req_courier{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
@@ -443,16 +386,57 @@
               <br>
            @endif
            @endforeach</td>
-         </tr>
           </tr>
-         
+          <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td></tr>
+          <tr><td><h4>Vehicle</h4></td></tr>
+          <tr>
+            
+            <td><b>Vehicle_type</b></td>
+            <td> @foreach($getservices as $service_value)
+           @if($service_value->type == "Vehicle" && $service_value->sub_type == "Vehicle_type") 
+            <input type="checkbox" name="req_veh{{$service_value->sub_type_1}}" id="req_veh{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
+            <label for="req_veh" >{{$service_value->sub_type_1}}</label>
+              <br>
+           @endif
+           @endforeach</td>
+
+          </tr>
+          </tr>
+          <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td></tr>
+          <tr><td><h4>Relocation</h4></td></tr>
+          
+          <tr>
+            
+          <td><b>Home</b></td>
+          <td>@foreach($getservices as $service_value)
+           @if($service_value->type == "Relocation" && $service_value->sub_type == "Home") 
+            <input type="checkbox" name="req_relocation{{$service_value->sub_type_1}}" id="req_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
+            <label for="req_relocation" >{{$service_value->sub_type_1}}</label>
+              <br>
+           @endif
+           @endforeach</td>
+           <td><b>Office</b></td>
+          <td> @foreach($getservices as $service_value)
+           @if($service_value->type == "Relocation" && $service_value->sub_type == "Office") 
+            <input type="checkbox" name="req_relocation{{$service_value->sub_type_1}}" id="req_relocation{{$service_value->id}}" value="{{$service_value->id}}" >&nbsp;
+            <label for="req_relocation" >{{$service_value->sub_type_1}}</label>
+              <br>
+           @endif
+           @endforeach</td>
+           </tr>
 
 
          </tbody></table>
       </div>
-      <div id="tabs-2" aria-labelledby="ui-id-2" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;"></div>
-       <div id="tabs-3" aria-labelledby="ui-id-3" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;"></div>
-        <div id="tabs-4" aria-labelledby="ui-id-4" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;"></div>
+      <div id="tabs-2" aria-labelledby="ui-id-2" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;">2</div>
+       <div id="tabs-3" aria-labelledby="ui-id-3" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;">3</div>
+        <div id="tabs-4" aria-labelledby="ui-id-4" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;">4</div>
       
       
       
