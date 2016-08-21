@@ -17,7 +17,7 @@ class PaymentPostController extends Controller
     public function paymentPost($buyer_id) {
         
         Session::put('buyer_id',$buyer_id);
-
+        
         return view('paymentPost');
     }
     
@@ -26,7 +26,7 @@ class PaymentPostController extends Controller
     }
 
     public function paymentBookResponse() {
-
+        
         $buyer_id = Session::get('buyer_id');
 
         $confirm = "/buyer/buyerConfirmation/".$buyer_id;
@@ -47,8 +47,10 @@ class PaymentPostController extends Controller
     // seller_buyer_flag 2 means seller
     
     public function paymentConfirm() {
-        $registrationId = Session::get('RegistrationId');
-        $result = DB::table('lgtks_users')->where('lgtks_registrations_id',$registrationId)->update([
+        
+        $user_id = Session::get('buyer_id');
+        
+        $result = DB::table('lgtks_users')->where('id',$user_id)->update([
           'seller_buyer_flag'=>2 // seller
           ]);
         

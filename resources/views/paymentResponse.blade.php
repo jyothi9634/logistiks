@@ -1,6 +1,6 @@
 <?php 
-print_r($_POST);
-exit;
+/*print_r($_POST);
+exit;*/
 session_start();
 $HASHING_METHOD = 'sha512'; // md5,sha1
 

@@ -24,7 +24,7 @@
     
     
     <div class="ri-tbl">
-        <form method="post" action="/paymentPost" name="subscription" id="subscription">
+        <form method="post" action="/paymentPost/<?php echo $user_id;?>" name="subscription" id="subscription">
         <div class="ri-table-1">
             <div class="ri-row-1">
                 <div class="ri-cell-1"><h3 class="black">Choose your subscription</h3></div>
@@ -44,7 +44,7 @@
               <label for="radio4" class="radio-label set-2">Five Years ` 4000.00</label></div>
                 <input name="account_id" type="hidden" value="20150"/>
                 <input name="secretkey" type="hidden" value="209b9b0bffc0ddafbbd0047a892b9dd3" size="35"/>
-                <input name="return_url" type="hidden" size="60" value="http://localhost:8000/paymentResponse" />
+                <input name="return_url" type="hidden" size="60" value="http://localhost:8000/paymentResponse">
                 <input name="channel" type="hidden"  value="10" />
                 <input name="reference_no" type="hidden" value="<?php echo time();?>" />
                 <input name="currency" type="hidden" value="INR" />

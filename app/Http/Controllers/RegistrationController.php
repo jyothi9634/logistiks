@@ -116,7 +116,7 @@ class RegistrationController extends BaseController
       try{
           
           $registration_fields = Input::all();
-
+          
           $indv_registration = $this->register->indvRegister($registration_fields);
           
           $getmemberDetails = $this->register->regDetails($indv_registration['registered_id']);
@@ -200,7 +200,9 @@ class RegistrationController extends BaseController
 
   public function userSubscription(){
 
-    return view('usersubscription');
+    $user_id = Session::get('user_id');
+
+    return view('usersubscription')->with(['user_id'=>$user_id]);
 
   }
 
@@ -281,10 +283,14 @@ class RegistrationController extends BaseController
     
     try{
           $input = Input::all();
-
+          
+          $user_id=$this->register->getUserid($input['registered_id']);
+          
           $saveMarketplace = $this->register->saveMarketplace($input);
-
-          return view('usersubscription')->with(['input'=>$input]);
+          
+          Session::put('user_id',$user_id[0]);
+          
+          return view('usersubscription')->with(['input'=>$input,'user_id'=>$user_id[0]]);
           
 
     }

@@ -123,7 +123,7 @@ class BuyerSearchController extends BaseController {
      public function buyerFtlFilter() {
 
         $filterInputs = Input::all();
-        print_r($filterInputs);exit;
+        
         $filterInputs['searchType'] = "advancedFilter";
         
         $buyerSearchResult = BuyerSearchComponent::SellerPosts($filterInputs);
@@ -142,7 +142,7 @@ class BuyerSearchController extends BaseController {
             
             $buyer_id = Session::get('user_id') ;
             
-            $seller_post_details   = $this->buyer->getPostdata($post_id);
+            $seller_post_details   = $this->buyer->getPostdata($post_id,$seller_user_id);
             
             $buyer_booknow_details = $this->buyer->buyerBooknow($seller_user_id);
             
@@ -164,16 +164,25 @@ class BuyerSearchController extends BaseController {
             
             $getCart = $this->buyer->getcartDetails($buyer_user_id,$buyerCartDetails,$seller_id,$post_id);
             
-            
-            
             $total_sum = 0;
-                            
+            
+            
+
             foreach($getCart as $value){
                 
                 $total_sum = $total_sum + $value->price;
+
+                $seller_name = DB::table('lgtks_users as lu')
+                              ->leftjoin('lgtks_posts as lp','lp.user_id','=','lu.id')
+                              ->where('lp.id',$value->post_id)
+                              ->pluck('lu.name');
+
+                 $value->seller_name =   $seller_name[0];          
+
                                             
             }       
             
+
             return view('Buyers.cart',['cart_data'=>$getCart,'total_sum'=>$total_sum,'seller_id'=>$seller_id,'buyer_id'=>$buyer_user_id,'post_id'=>$post_id]);
         
         }
@@ -202,8 +211,8 @@ class BuyerSearchController extends BaseController {
             foreach($buyerconfirmorders as $value){
                 
                 $total_sum = $total_sum + $value->price;
-                                            
-            }  
+
+               }  
 
 
             return view('Buyers.buyergsa',['buyer_gsa'=>$getGsadetails,'buyer_id'=>$buyer_id,'price'=>$total_sum]);
@@ -227,6 +236,13 @@ class BuyerSearchController extends BaseController {
             foreach($buyerconfirmorders as $value){
                 
                 $total_sum = $total_sum + $value->price;
+
+                $seller_name = DB::table('lgtks_users as lu')
+                              ->leftjoin('lgtks_posts as lp','lp.user_id','=','lu.id')
+                              ->where('lp.id',$value->post_id)
+                              ->pluck('lu.name');
+
+                 $value->seller_name =   $seller_name[0]; 
                                             
             }      
             

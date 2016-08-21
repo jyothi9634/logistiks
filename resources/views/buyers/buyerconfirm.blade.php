@@ -45,7 +45,7 @@
     </tr>
   @foreach($orderConfirmation as $Orders)
   <tr>
-    <td>{{$Orders->name}}</td>
+    <td>{{$Orders->seller_name}}</td>
     <td>123456</td>
     <td>{{$Orders->from_loc}}</td>
     <td>{{$Orders->to_loc}}</td>

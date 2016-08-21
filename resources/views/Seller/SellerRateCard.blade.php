@@ -2,41 +2,7 @@
 @section('content');
 
 <script language="javascript">
-    
-    
-$(document).ready(function() {
- 
-    $("#submit").on('click',function(){
-       
-     
-        var check1 = $('#checkbox1').is(":checked");
-        var check2 = $('#checkbox2').is(":checked");
-        var check3 = $('#checkbox3').is(":checked");
-        var check4 = $('#checkbox_5').is(":checked");
-        var check5 = $('#checkbox_6').is(":checked");
-            if( check1 === true || check2 === true || check3 === true){
-                    console.log("hi");
-            }else{
-                alert('please select the payment terms ');
-                   
-            }
-        if( check4 === true){
-                    console.log("hi");
-            }else{
-                alert('please select the Post type');
-                   
-            }
-        if( check5 === true ){
-                    console.log("hi");
-            }else{
-                alert('please agree for Terms and conditions ');
-                   
-            }
-    });
-       
-     
 
-});
 </script>
 
 <div class="container-1">
@@ -97,8 +63,8 @@ $(document).ready(function() {
               <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                        <input class="animated-field animated-field-logistiks post_title" type="text" id="post_title" name="post_title" pattern="[a-zA-Z ]{1,50}" placeholder="Title" required/>
-                        <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> 
+                        <input class="animated-field animated-field-logistiks post_title" type="text" id="post_title" name="post_title" pattern="[a-zA-Z ]{1,50}" required/>
+                        <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Title</span> 
                       </label>
                     </span></li>
                   <li>
@@ -119,7 +85,7 @@ $(document).ready(function() {
                         <option value="52178">Air Force Hospital S.O</option>
                         <option value="52179">Amruthahalli B.O</option>
                         <option value="52181">Arabic College S.O</option>
-                    </select>
+                      </select>
                     </div></li>
                   <li><div class="select-box1 to_loc" >
                     <select name="to_loc" id="combobox"  required>
@@ -154,13 +120,13 @@ $(document).ready(function() {
                       </select>
                     </div></li>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks transit_days" type="text" id="input-4" name="transit_days" pattern="[0-9]*" maxlength="3" placeholder="Transit Days" required/>
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
+                    <input class="animated-field animated-field-logistiks transit_days" type="text" id="input-4" name="transit_days" pattern="[0-9]*" maxlength="3" required/>
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Transit Days*</span> </label>
                     </span></li>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks price" type="text" id="input-4" 
-                           name="price"  pattern="[0-9]*" maxlength="5"  placeholder="Price*" required/>
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4" > <span class=""></span> </label>
+                    <input class="animated-field animated-field-logistiks price" type="text" id="prices" 
+                           name="price"  pattern="[0-9]*" maxlength="5"/>
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4" > <span class="animated-label-content animated-label-content-logistiks">Price*</span> </label>
                     </span></li>
                 </ul>
               </div>
@@ -171,8 +137,8 @@ $(document).ready(function() {
                   </li>
                   <li>
                     <span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks load_limit" type="text" id="input-4" name="load_limit" pattern="[0-9]*" maxlength="3"  placeholder="Load Commitment Limit per day*" required/>
-                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> 
+                    <input class="animated-field animated-field-logistiks load_limit" type="text" id="input-4" name="load_limit" pattern="[0-9]*" maxlength="3"  required/>
+                    <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Load Commitment Limit per day*</span> 
                       </label>
                     </span>
                   </li>
@@ -194,52 +160,58 @@ $(document).ready(function() {
             <div class="column-2">
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-<!--                  <td align="right" valign="middle"><a href="#" class="link-1" id="showhide-btn-2">Discounts</a></td>-->
+                  <td align="right" valign="middle"><a href="#" class="link-1 discountRoute" id="discount-btn-1">Discounts</a></td>
                   <td width="130" align="right" valign="middle"><input type="button" value="ADD ROUTE" id="addroute" class="button-gray-1"></td>
                 </tr>
               </table>
             </div>
-            <div class="display-none" id="showhide-content-2">
+            <div  id="discount-content-1">
               <div class="column-1">
                 <div class="grid-5">
                   <ul>
-                    <li><span class="input input-logistiks">
-                      <input class="animated-field animated-field-logistiks" type="text" id="input-4"  />
-                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Name (Auto Fill)</span> </label>
-                      </span></li>
-                    <li><div class="select-box1 discount_type">
-                    <select name="discount_type" id="combobox" >
+                     <li><div class="select-box1 user_name" >
+                    <select name="user_name" id="combobox">
+                        <option value="">Names(Auto Fill)</option>
+                        <?php foreach($data['buyer'] as $value) {?>
+                          <option value="<?php echo $value->id;?>"><?php echo $value->name; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div> 
+                      </li>
+                    <li><div class="select-box1 user_discount_type">
+                    <select name="user_discount_type" id="combobox" >
                         <option value="">Discount Type* (Auto Fill)</option>
-                        <?php foreach($data['discount'] as $dis) { print_r($dis);?>
-                          <option value="<?php echo $dis->id;?>"><?php echo $dis->discount_type; ?></option>
+                        <?php foreach ($data['discount'] as  $value) { ?>
+                    <option value="<?php echo $value->id;?>"><?php echo $value->discount_type; ?></option>
                         <?php } ?>
                       </select>
                     </div></li>
                     <li><span class="input input-logistiks">
-                      <input class="animated-field animated-field-logistiks" type="text" id="input-4" pattern="[1-9]" placeholder="Discount"/>
-                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"><span class=""></span></label>
+                      <input class="animated-field animated-field-logistiks user_discount" type="text" id="input-4" pattern="[0-9]+" maxlength="2"/>
+                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Discount</span> </label>
                       </span></li>
                     <li><span class="input input-logistiks">
-                      <input class="animated-field animated-field-logistiks" type="text" id="input-4"  placeholder="Credit Days"/>
-                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
+        <input class="animated-field animated-field-logistiks user_crid_day" type="text" id="input-4" pattern="[0-9]+" maxlength="2" />
+                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Credit Days</span> </label>
                       </span></li>
                     <li></li>
                     <li>
-                      <input type="button" value="ADD" class="button-gray-1 margin-top-1" >
+                      <input type="button" value="ADD" class="button-gray-1 margin-top-1" id="user_discount_add">
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="column-2" style="margin-top:20px;">
-                <div class="table-1">
-<!--
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="discount_table">
-             
-                  </table>
--->
+                
+                
+                
+
+                
+                <div class="column-2" style="margin-top:20px;">
+                <div class="table-1" id="user_add_discount">
+                  
                 </div>
               </div>
-            </div>
+           </div>
             
             <div class="column-2">
               <h3 id="rate_card">Rate Card (Routes)</h3>
@@ -247,50 +219,44 @@ $(document).ready(function() {
 
               </div>
             </div>
-            <div class="column-2">
+            <div class="column-2" id="test">
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td align="right" valign="middle"><a href="#" class="link-1" id="showhide-btn-1">Discounts</a></td>
+                  <td align="right" valign="middle"><a href="#" class="link-1" id="discount-btn-2">Discounts</a></td>
                   <td width="130" align="right" valign="middle"></td>
                 </tr>
               </table>
             </div>
-            <div class="display-none" id="showhide-content-1">
+            <div  id="discount-content-2">
               <div class="column-1">
                 <div class="grid-5">
                   <ul>
-                    <li>
-                      <span>
-                      <div class="select-box1 disc_name" >
+                    <li><div class="select-box1 disc_name" >
                     <select name="disc_name" id="combobox">
                         <option value="">Names(Auto Fill)</option>
-                        @foreach($data['buyers'] as $buyer)
+                        @foreach($data['buyer'] as $buyer)
                           <option value="<?php echo $buyer->id;?>"><?php echo  $buyer->name; ?></option>
                         @endforeach
                       </select>
                     </div> 
-                  </span>
                       </li>
-                          <li>
-                            <span>
-                            <div class="select-box1 disc_type">
+                          <li><div class="select-box1 disc_type">
                     <select name="disc_type" id="combobox" >
-                        <option value="">Discount Type</option>
-                        <option value="1">Flat</option>
-                        <option value="2">Permanent</option>
+                    <option value="">Discount Types(Auto Fill)</option>
+                        <?php foreach ($data['discount'] as  $value) { ?>
+                    <option value="<?php echo $value->id;?>"><?php echo $value->discount_type; ?></option>
+                        <?php } ?>
                       </select>
-                    </div>
-                  </span>
-                  </li>
+                    </div></li>
                 <li><span class="input input-logistiks">
-        <input class="animated-field animated-field-logistiks discount" type="text" id="input-4" pattern="[1-9]*" maxlength="2" placeholder="Discount *"/>
-                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
+                      <input class="animated-field animated-field-logistiks discount" type="text" id="input-4" pattern="[1-9]*" maxlength="2" />
+                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Discount *</span> </label>
                       </span></li>
                     <li><span class="input input-logistiks">
-        <input class="animated-field animated-field-logistiks crid_day" type="text" id="input-4" pattern="[1-9]*" maxlength="2" placeholder="Credit Days *"/>
-                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
+        <input class="animated-field animated-field-logistiks crid_day" type="text" id="input-4" pattern="[1-9]*" maxlength="2" />
+                      <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks">Credit Days *</span> </label>
                       </span></li>
-                    
+                    <li></li>
                     <li>
                       <input type="button" value="ADD"  class="button-gray-1 margin-top-1" id="discount_add">
                     </li>
@@ -316,17 +282,19 @@ $(document).ready(function() {
                       </select>
                     </div></td>
                   <td width="10%" valign="top">&nbsp;</td>
-                  <td valign="top"><h3 style="padding-bottom:16px;">Payment Terms</h3>
+                  <!-- <td valign="top"><h3 style="padding-bottom:16px;">Payment Terms</h3>
                       <span>
                           <?php foreach($data['paymentTermData'] as $pay){for($i=0;$i<count($pay);$i++){ ?>
                           <input type="checkbox" name="checkbox[]" value='<?php echo $pay->id; ?>' id="checkbox<?php echo $pay->id; ?>" data-id="checkbox" class="css-checkbox str"/>
                           <label for="checkbox<?php echo $pay->id; ?>" class="checkbox_label"><?php echo $pay->payment_term;?></label>
                     </span>
-                      <?php   } } ?></td>
-                    
-                    <!--<span>
+                      <?php   } } ?></td> -->
+
+
+                   <!--  <td valign="top"><h3 style="padding-bottom:16px;">Payment Terms</h3>
+                    <span>
                     <input type="checkbox" name="checkbox_1" id="checkbox_1" class="css-checkbox" />
-                    <label for="checkbox_1" class="checkbox_label">Cash(Escrow*)</label>
+                    <label for="checkbox_1" class="checkbox_label">Net Banking</label>
                     </span> <span class="margin-left-1">
                     <input type="checkbox" name="checkbox_2" id="checkbox_2" class="css-checkbox" />
                     <label for="checkbox_2" class="checkbox_label">NEFT/RTGS</label>
@@ -336,8 +304,28 @@ $(document).ready(function() {
                     </span> <span class="margin-left-1">
                     <input type="checkbox" name="checkbox_4" id="checkbox_4" class="css-checkbox" />
                     <label for="checkbox_4" class="checkbox_label">Debit Card</label>
-                    </span></td>-->
-                </tr>
+                    </span></td> -->
+                      <td valign="top"><h3 style="padding-bottom:16px;">Payment Terms</h3>
+                            <input type="radio" name="payments" id="subOptions1" data-group="#subOptions1"/>
+                            <label for="payments">Advance</label>
+                            </span> <span class="margin-left-1">
+                            <input type="radio" name="payments" id="subOptions2" data-group="#subOptions1" />
+                            <label for="payments" >Credit</label>
+                            </span> <span class="margin-left-1">
+                             <div id="Options1">
+                                
+                                    <label><input type="checkbox" name="payment[]" class="test" id="one"  value="1"> Credit</label>
+                                    <label><input type="checkbox" name="payment[]"  class="test" id="two" value="2"> Debit</label>
+                                    <label><input type="checkbox" name="payment[]" id="three"  class="test" value="3"> Net</label>
+                                  </div>
+
+                                  <div id="Options2">
+                                    <label><input type="checkbox" name="payment[]" id="four"  class="test" value="4"> NEFT/RTGS</label>
+                                  </div>
+
+                                  <input type="hidden" name="payValues[]" id="payValues" />
+                          </td>
+                   </tr>
               </table>
             </div>
             <br>
@@ -370,6 +358,4 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-<script src="/js/addroute.js"></script> 
-<script src="/js/customizeRoute.js"></script> 
 @stop

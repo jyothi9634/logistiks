@@ -20,7 +20,7 @@ class BuyerSearch extends Model
                        ->leftjoin('payment_terms as pyt','pyt.id','=','lp.payment_term')
                        ->leftjoin('tracking_types as tt','tt.id','=','lp.tracking_type')
                        ->leftjoin('lgtks_users as lu','lu.id','=','lp.user_id');
-    
+                       
                        
      $array = array('pld.village' =>$data['from_loc'],
                     'pldd.village'=> $data['to_loc'],
@@ -73,14 +73,14 @@ class BuyerSearch extends Model
         
     }
    
-    public function getPostdata($buyer_user_id){
+    public function getPostdata($post_id,$seller_user_id){
       try{
 
-          $order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
+          //$order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
           
-           return DB::table('lgtks_orders as lo')
-                ->leftjoin('lgtks_users as lu','lo.user_id','=','lu.id')         
-                ->where(array('lo.user_id'=>$buyer_user_id,'lo.order_status'=>$order_status))
+           return DB::table('lgtks_posts as lp')
+                ->leftjoin('lgtks_users as lu','lp.user_id','=','lu.id')         
+                ->where(array('lp.user_id'=>$seller_user_id,'lp.id'=>$post_id))
                 ->get();
 
       }

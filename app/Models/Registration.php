@@ -124,6 +124,9 @@ class Registration extends Model
             'created_on'=>date("Y-m-d h:i:s")));
                  
           //Updation of Registrations in Individual registration
+            DB::table('lgtks_users')
+            ->where('lgtks_registrations_id',$session_reg_id)
+            ->update(array('name'=>$inputs['first_name']));
 
          $message = "Successfully registered";
          $status  = 1;
@@ -141,6 +144,13 @@ class Registration extends Model
     }
 
   }
+
+  public function getUserid($registered_id){
+
+      return DB::table('lgtks_users')->where('lgtks_registrations_id',$registered_id)->pluck('id');
+
+  }
+
 
   public function regDetails($registered_id){
 

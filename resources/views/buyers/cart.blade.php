@@ -33,7 +33,7 @@
   </tr>
   @foreach($cart_data as $data)
   <tr>
-    <td>{{$data->name}}</td>
+    <td>{{$data->seller_name}}</td>
     <td>{{$data->from_loc}}</td>
     <td>{{$data->to_loc}}</td>
     <td>{{date("Y-m-d", strtotime($data->dispatch_dt))}}</td>
@@ -67,7 +67,7 @@
                   <tr>
                   <td align="left" valign="middle">
                   <input type="button" value="Continue Shopping" class="button-gray-1">
-                  <input type="button" value="Clear Cart" class="button-gray-1">
+                  <!-- <input type="button" value="Clear Cart" class="button-gray-1"> -->
                   </td>
                   <td width="250" align="right" valign="middle">
                   	<?php echo Form::submit('CHECK OUT',array('class' => 'button-red-1')); ?>

@@ -19,8 +19,8 @@ class SellerPostComponent{
         $data =Seller::SellerPost();
         return $data;
     }
-  
-  public static function SellerSession($session_id){
+    
+      public static function SellerSession($session_id){
       
       return DB::table('lgtks_users')->where('id',$session_id)->select('seller_buyer_flag','name')->get();
 
@@ -30,7 +30,7 @@ class SellerPostComponent{
         Seller::PostMasterInsertion($data);
     }
    
-	public static function PostMData($id){
+  public static function PostMData($id){
         $data =Seller::PostMGData($id);
         return $data;
     }
@@ -53,9 +53,14 @@ class SellerPostComponent{
     
 
     //offers
-       public static function GetSellerOffers($user_id){
-        $data = Seller::fetchSellerEnquiries($user_id);
+       public static function GetSellerOffers($user_id,$post_id){
+        $data = Seller::fetchSellerEnquiries($user_id,$post_id);
         return $data;
+    }
+    
+    
+    public static function send_funct($data){
+        Seller::send_funct($data);
     }
     
     

@@ -10,27 +10,17 @@
 <script src="/js/datepicker-shortcode.js"></script>
 <link rel="stylesheet" href="/css/accordian.css">
 <script src="/js/accordian-shortcode.js"></script>
-<script src="/js/text-filed-1-shartcode.js"></script> 
+<!-- <script src="/js/text-filed-1-shartcode.js"></script>  -->
 <script src="/js/main.js"></script>
+<script src="/js/addroute.js"></script> 
+<script src="/js/customizeRoute.js"></script> 
 
 
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"> -->
-<!--  <link rel="stylesheet" href="/resources/demos/style.css">
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 
-   -->
-
-
-<!--[if lt IE 9]>
-  <script src="../js/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<![endif]-->
-
-</head>
 <body>
 <header>
-  <div class="header-wrapper">
+ <div class="header-wrapper">
     <div class="tbl-1">
       <div class="row-1">
         <div class="cell-1"><img src="/images/logo.png" alt="Logo"></div>
@@ -71,8 +61,7 @@
       </div>
     </div>
   </div>
-
-  <div class="menu">
+   <div class="menu">
     <div class="wrapper-1">
         <div class="tbl-1">
             <div class="row-1">
@@ -103,5 +92,4 @@
         </div>
     </div>
 </div>
-
 </header>

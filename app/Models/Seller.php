@@ -8,6 +8,7 @@ use App\Components\SellerSearchComponent;
 use DB;
 use Illuminate\Support\Facades\Session;
 
+
 class Seller extends Model
 {
     public static function SellerPost(){
@@ -16,20 +17,23 @@ class Seller extends Model
             $trackingTypeData = DB::select('select * from tracking_types');
             $vehicleTypesData = DB::select('select * from vehicle_types');
             $loadTypesData = DB::select('select * from load_types');
-            $buyers = DB::select('select * from lgtks_users where seller_buyer_flag=1');
+            $buyer = DB::select('select id,name from lgtks_users where seller_buyer_flag=1');
             $discount = DB::select('select * from discount_type');
+
        
-            $data = ['buyers'=>$buyers,'pincodeData'=>$pincodeData , 'paymentTermData'=>$paymentTermData , 'trackingTypeData'=>$trackingTypeData , 'vehicleTypesData'=>$vehicleTypesData , 'loadTypesData'=>$loadTypesData,'discount'=>$discount];
+            $data = ['buyer'=>$buyer,'pincodeData'=>$pincodeData , 'paymentTermData'=>$paymentTermData , 'trackingTypeData'=>$trackingTypeData , 'vehicleTypesData'=>$vehicleTypesData ,
+             'loadTypesData'=>$loadTypesData,'discount'=>$discount];
                 
             //SellerPostComponent::GetData($data);  
             return $data;
     }
     
     public static function SellerPostInsertion($data,$nextdata){
-        
+      
+
       $data[0]['user_id'] = Session::get('user_id');
       
-       DB::table('lgtks_posts')->insert($data); // inserting add routes data to lgkts_posts table
+      DB::table('lgtks_posts')->insert($data); // inserting add routes data to lgkts_posts table
         if(empty($nextdata)){
             exit;
         }else{
@@ -77,7 +81,7 @@ or lp.veh_type=sh.vehicle_type and lu.seller_buyer_flag=0'));
       return ['results'=>$results];
        
     }
-	
+  
     
   public static function SellerPostMasterTo($user_id){
       
@@ -89,11 +93,11 @@ datediff(valid_to,valid_from) as DiffDate,(select contract_name from contract_ty
 valid_from,valid_to from lgtks_posts lp join lgtks_users lu on lp.user_id=lu.id where lu.seller_buyer_flag=0 and lp.seller_buyer_flag=1 and lu.id=:user_id"), array(
 'user_id'=>$user_id,));
 
-	   $to = DB::select(DB::raw("select count(id) as outgoing_posts from lgtks_posts where user_id=:user_id"), array('user_id'=>$user_id,));
-	   $from = DB::select(DB::raw("select count(lp.id) as incoming_posts from lgtks_posts lp join private_posts pp on pp.post_id=lp.id where private_public_flag=1 and lp.user_id=:user_id"),array('user_id'=>$user_id,));
-	   
-	    return ['pi'=>$SellerPostMasterTo,'to'=>$to,'from'=>$from];
-	   
+     $to = DB::select(DB::raw("select count(id) as outgoing_posts from lgtks_posts where user_id=:user_id"), array('user_id'=>$user_id,));
+     $from = DB::select(DB::raw("select count(lp.id) as incoming_posts from lgtks_posts lp join private_posts pp on pp.post_id=lp.id where private_public_flag=1 and lp.user_id=:user_id"),array('user_id'=>$user_id,));
+     
+      return ['pi'=>$SellerPostMasterTo,'to'=>$to,'from'=>$from];
+     
    }
     
      public static function SellerPostMasterFrom($user_id){
@@ -107,10 +111,10 @@ datediff(valid_to,valid_from) as DiffDate,
  valid_from,valid_to  from  lgtks_posts lp  join lgtks_users lu on lp.user_id=lu.id where lu.seller_buyer_flag=0 and lp.user_id=:user_id'),array('user_id'=>$user_id,)); 
              
          $to = DB::select(DB::raw("select count(id) as outgoing_posts from lgtks_posts where user_id=:user_id"), array('user_id'=>$user_id,));
-	   $from = DB::select(DB::raw("select count(lp.id) as incoming_posts from lgtks_posts lp join private_posts pp on pp.post_id=lp.id where private_public_flag=1 and lp.user_id=:user_id"),array('user_id'=>$user_id,));
+     $from = DB::select(DB::raw("select count(lp.id) as incoming_posts from lgtks_posts lp join private_posts pp on pp.post_id=lp.id where private_public_flag=1 and lp.user_id=:user_id"),array('user_id'=>$user_id,));
          
-	    return ['pi'=>$sellerPostmasterFrom,'to'=>$to,'from'=>$from];
-	   
+      return ['pi'=>$sellerPostmasterFrom,'to'=>$to,'from'=>$from];
+     
    }
     
     
@@ -126,12 +130,12 @@ valid_from,valid_to from lgtks_posts lp  join lgtks_users lu on lp.user_id=lp.us
  where lu.seller_buyer_flag=1 or lp.seller_buyer_flag=0 and lp.user_id=:user_id'),array('user_id'=>$user_id,)); 
          
          $to = DB::select(DB::raw("select count(id) as outgoing_posts from lgtks_posts where user_id=:user_id"), array('user_id'=>$user_id,));
-	   $from = DB::select(DB::raw("select count(lp.id) as incoming_posts from lgtks_posts lp join private_posts pp on pp.post_id=lp.id where private_public_flag=1 and lp.user_id=:user_id"),array('user_id'=>$user_id,));
+     $from = DB::select(DB::raw("select count(lp.id) as incoming_posts from lgtks_posts lp join private_posts pp on pp.post_id=lp.id where private_public_flag=1 and lp.user_id=:user_id"),array('user_id'=>$user_id,));
          
                   return ['pi'=>$sellerPostmasterAll,'to'=>$to,'from'=>$from];
 
 
-	   
+     
    }
     
     
@@ -139,12 +143,12 @@ valid_from,valid_to from lgtks_posts lp  join lgtks_users lu on lp.user_id=lp.us
 //        echo "sucess";
 //        DB::table('lgtks_posts')->insert($data);
 //   }
-	
+  
 public static function PostMGData($id){
        $pt = DB::select(DB::raw('select * from packaging_types'));
        $ct = DB::select(DB::raw('select * from consignment_type'));
        $lp = DB::select(DB::raw('select lp.id as post_id,lp.user_id as user_id,lp.from_loc,lp.to_loc,lp.dispatch_dt,lp.delivery_dt,lodt.load_type as load_type,lp.qty,vt.vehicle_type as vehicle_type,lp.price,lp.transit_days,trt.tracking_type as tracking_type,pytm.payment_term as payment_term,apt.adv_payment_type as adv_payment_type,apt.id as aptid,pytm.id as pytmid,lp.tracking_type as trtid from lgtks_posts lp,payment_terms pytm,vehicle_types vt,tracking_types trt,load_types lodt,adv_payment_types apt where lp.payment_term=pytm.id and lp.tracking_type=trt.id and vt.id=lp.veh_type and lodt.id=lp.load_type and apt.id=lp.payment_term and lp.id=:id'),array('id' => $id,));
-	  
+    
         return ['pt'=>$pt,'ct'=>$ct,'lp'=>$lp];
     }
     
@@ -152,8 +156,8 @@ public static function PostMGData($id){
     //offers
     
         
-    public static function fetchSellerEnquiries($user_id){
-        $data = DB::select(DB::raw('select lp.id,(select village from pincode_location_details where id= lp.from_loc)as from_loc,lp.seller_buyer_flag,
+    public static function fetchSellerEnquiries($user_id,$post_id){
+        $data = DB::select(DB::raw('select lp.price,lp.id,(select village from pincode_location_details where id= lp.from_loc)as from_loc,lp.seller_buyer_flag,
 (select village from pincode_location_details where id= lp.to_loc)as to_loc,
 lp.private_public_flag,lp.valid_from,lp.valid_to,
 (select tracking_type from tracking_types where id=lp.tracking_type)as tracking_type,
@@ -162,7 +166,10 @@ lp.private_public_flag,lp.valid_from,lp.valid_to,
 (select count(id) from lgtks_posts)as routes,lp.dispatch_dt,lp.load_commitment_per_day,lp.last_date_for_quote,lp.qty,lp.discount_type 
 from lgtks_posts lp join lgtks_users lu on lp.user_id=lu.id 
 where lp.private_public_flag=0 and lp.enquiry_status=1 and lp.seller_buyer_flag=1 and lp.user_id=:user_id'),array('user_id'=>$user_id,));
-        return ['data'=>$data];
+        
+        $cnt_p_t= DB::select(DB::raw("select count(pi.id) as cnt_id from post_interactions pi join lgtks_posts lp  on lgtks_post_id=lp.id  where seller_buyer_flag=1 and post_interaction_type=2 and lp.id=:post_id"),array('post_id'=>$post_id,));
+        
+        return ['res'=>$data,'cnt_p_t'=>$cnt_p_t];
     }
     
     
@@ -173,5 +180,5 @@ where lp.private_public_flag=0 and lp.enquiry_status=1 and lp.seller_buyer_flag=
         }
     
 
-	
+  
 }

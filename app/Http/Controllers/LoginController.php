@@ -64,15 +64,17 @@ class LoginController extends Controller
             Session::put('user_id',$authenticate[0]->id);
             Session::put('user_name',$authenticate[0]->user_name);
             
-            if($authenticate[0]->seller_buyer_flag == 1){
+            if($authenticate[0]->seller_buyer_flag == 2){
               
-              return Redirect::to('/buyer/search');
+              return Redirect::to('/SellerRateCard');
+
               
 
             }
             else{
 
-              return Redirect::to('/SellerRateCard');
+              return Redirect::to('/buyer/search');
+              
             }
 
 
