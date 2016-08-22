@@ -38,7 +38,7 @@
     <td>{{$data->to_loc}}</td>
     <td>{{date("Y-m-d", strtotime($data->dispatch_dt))}}</td>
     <td>Road FTL</td>
-    <td>{{$data->price}}</td>
+    <td>{{number_format($data->price)}}</td>
     
     <td><a href="#"><img src="/images/delete-1.png" width="20" height="21" alt="delete"></a></td>
   </tr>
@@ -49,7 +49,7 @@
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>Total Amount</td>
-    <td>{{$total_sum}}</td>
+    <td>{{number_format($total_sum)}}</td>
     <td>&nbsp;</td>
   </tr>
                </tbody></table>

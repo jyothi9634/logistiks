@@ -51,7 +51,7 @@
     <td>{{$Orders->to_loc}}</td>
     <td>{{date("Y-m-d", strtotime($Orders->dispatch_dt))}}</td>
     <td>Road FTL</td>
-    <td>{{$Orders->price}}</td>
+    <td>{{number_format($Orders->price)}}</td>
     </tr>
    @endforeach 
   <tr>
@@ -61,7 +61,7 @@
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>Total Amount</td>
-    <td>{{$total_sum}}</td>
+    <td>{{number_format($total_sum)}}</td>
     </tr>
                </tbody></table>
 

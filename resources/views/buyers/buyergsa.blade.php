@@ -82,14 +82,20 @@
                         the State concerned. Practice could be different than the Rules &amp; Regulations in some of the States<br>
                         For this transaction from Hyderabad to Chennai the buyer has to give the following documents:</p>
                       <div class="list-1">
+                       <p><b>To be provided by seller</b></p>
                         <ul>
-                          <li>To be provided by sellerI</li>
+                          
                           <li>Lorry ReceiptI</li>
-                          <li>To be provided by buyerI</li>
+                          &nbsp;
+                          &nbsp;
+                        </ul>
+                        <p><b>To be provided by buyer</b></p>
+                        <ul>
+                          
                           <li>Seller InvoiceI</li>
                           <li>Form X or 600I</li>
                           <li>FORM JJ /KK /LLI</li>
-                        </ul>
+                          </ul>
                       </div>
                       @endforeach
                        <div class="text-right">
@@ -98,7 +104,7 @@
                 <input type="hidden" name="amount" value="{{$price}}"  class="css-radiobtn">
                 <input name="account_id" type="hidden" value="20150"/>
                 <input name="secretkey" type="hidden" value="209b9b0bffc0ddafbbd0047a892b9dd3" size="35"/>
-                <input name="return_url" type="hidden" size="60" value="http://localhost:8000/paymentBookResponse" />
+                <input name="return_url" type="hidden" size="60" value="http://www.logistiks.com/new/paymentBookResponse" />
                 <input name="channel" type="hidden"  value="10" />
                 <input name="reference_no" type="hidden" value="<?php echo time();?>" />
                 <input name="currency" type="hidden" value="INR" />

@@ -31,7 +31,7 @@ class EmailSender {
             'email' => $input[0]->email_id,
             'subject' => 'User Authentication'];
 
-        return sendEmail($config, ['description' => 'http://localhost:8000/user_activation?key='.$token.'&registered_id='.$registered_id, 'email' => $input[0]->email_id , 'name' => $input[0]->first_name,'token'=>$token,'registered_id'=>$registered_id ]);
+        return sendEmail($config, ['description' => 'http://www.logistiks.com/new/user_activation?key='.$token.'&registered_id='.$registered_id, 'email' => $input[0]->email_id , 'name' => $input[0]->first_name,'token'=>$token,'registered_id'=>$registered_id ]);
         
     }
 
@@ -48,7 +48,7 @@ class EmailSender {
             'email' => $input['email_id'],
             'subject' => 'User Authentication'];
 
-        return sendEmail($config, ['description' => 'http://localhost:8000/new_user_activation?key='.$token.'&user_id='.$user_id, 'email' => $input['email_id'] , 'name' => $input['user_name'],'token'=>$token,'user_id'=>$user_id ]);
+        return sendEmail($config, ['description' => 'http://www.logistiks.com/new/new_user_activation?key='.$token.'&user_id='.$user_id, 'email' => $input['email_id'] , 'name' => $input['user_name'],'token'=>$token,'user_id'=>$user_id ]);
         
     }
 
