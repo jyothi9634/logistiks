@@ -204,7 +204,7 @@
                                 
                                 
                                 <form name="ftlSearch" id="ftlSearch" method="post" action="#">
-                                    <?php if(count($searchResults > 0)) { ?>
+                                    <?php if(count($searchResults) > 0) { ?>
                                     <input type="hidden" name="from_loc" id="from_loc" value="{{$searchResults[0]->from_loc}}">
                                     <input type="hidden" name="to_loc" id="to_loc" value="{{$searchResults[0]->to_loc}}">
                                     <input type="hidden" name="dispatch_dt" id="dispatch_dt" value="{{$searchResults[0]->dispatch_dt}}">
