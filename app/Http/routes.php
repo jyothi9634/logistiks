@@ -12,6 +12,7 @@
 */
 
 Route::any('memberRegistration','RegistrationController@index');
+Route::any('/','RegistrationController@index');
 Route::any('memberRegistration/privacyPolicy','RegistrationController@privacyPolicy');
 Route::any('memberRegistration/termsOfuse','RegistrationController@termsOfuse');
 Route::any('memberRegistration/cancellationPolicy','RegistrationController@cancellationPolicy');
