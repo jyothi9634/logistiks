@@ -33,7 +33,7 @@ class Registration extends Model
           'current_password'=>$password,
           'mobile_number'=>$inputs['mobile_number'],
           'lgtks_registrations_id'=>$regist_Id,   
-          'seller_buyer_flag'=> 1,   // 1 mean buyer 
+          'is_seller'=> 1,   // 1 mean buyer 
           ]);
           
         
@@ -309,7 +309,7 @@ class Registration extends Model
         
         
         DB::table('lgtks_users')->where('lgtks_registrations_id',$data['registered_id'])
-        ->update(array('seller_buyer_flag'=>$data['seller_buyer_flag']));
+        ->update(array('is_seller'=>$data['is_seller']));
         
         $message = "Successfully registered";
 

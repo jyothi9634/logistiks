@@ -468,7 +468,7 @@
             <label for="gta_no" >No</label></td>
           <td valign="bottom"><input type="text" id="gta_number" name="gta_number" class="text-fileld" placeholder="GTA Number" style="display:none;" ></td>
         </tr>
-        <input type="hidden" id="seller_buyer_flag" name="seller_buyer_flag" value='0'>
+        <input type="hidden" id="is_seller" name="is_seller" value='0'>
       </tbody></table>
       <br>
       <table width="60%" border="0" cellspacing="0" cellpadding="0">
@@ -731,12 +731,12 @@
       function getPaging(tab_id){
         
          if(tab_id == 'tab-1')
-          var seller_buyer_flag = 1;
+          var is_seller = 1;
 
           if(tab_id == 'tab-2')
-          var seller_buyer_flag = 0;
+          var is_seller = 0;
 
-          $('#seller_buyer_flag').val(seller_buyer_flag);      
+          $('#is_seller').val(is_seller);      
 
       }
 

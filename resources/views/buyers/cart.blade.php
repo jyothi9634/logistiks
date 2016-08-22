@@ -21,7 +21,7 @@
              <div class="new-table-1">
 			 			 
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-{!! Form::open(array('url' => 'buyer/buyerGsa'.'/'.$buyer_id.'/'.$seller_id.'/'.$post_id)) !!} 
+{!! Form::open(array('url' => 'buyer/buyerGsa'.'/'.$buyer_id.'/'.$seller_id.'/'.$lgtks_post_id)) !!} 
   <tbody><tr>
     <td>VENDOR NAME</td>
     <td>FROM</td>
@@ -39,7 +39,7 @@
     <td>{{date("Y-m-d", strtotime($data->dispatch_dt))}}</td>
     <td>Road FTL</td>
     <td>{{$data->price}}</td>
-    <!-- <td><a href="/buyer/deleteOrder/{{$seller_id}}/{{$buyer_id}}/{{$post_id}}/{{$data->id}}"><img src="/images/delete-1.png" width="20" height="21" alt="delete"></a></td> -->
+    
     <td><a href="#"><img src="/images/delete-1.png" width="20" height="21" alt="delete"></a></td>
   </tr>
   @endforeach

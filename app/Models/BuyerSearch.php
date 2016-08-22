@@ -29,6 +29,7 @@ class BuyerSearch extends Model
                     'lp.load_type'=>$data['load_type'],
                     'lp.veh_type'=>$data['veh_type']);
      
+
      
 
      if($data['searchType'] == 'advancedFilter') {
@@ -66,14 +67,16 @@ class BuyerSearch extends Model
         $array['lp.qty'] = $data['qty'];
     }
     
-    $db_query = $base_table->where($array)->select('*','lp.id as post_id',DB::raw("DATE_FORMAT(valid_from,'%d/%m/%Y') as valid_from_date,DATE_FORMAT(valid_to,'%d/%m/%Y') as valid_to_date"))->get();
+    
+
+    $db_query = $base_table->where($array)->select('*','lp.id as lgtks_post_id',DB::raw("DATE_FORMAT(valid_from,'%d/%m/%Y') as valid_from_date,DATE_FORMAT(valid_to,'%d/%m/%Y') as valid_to_date"))->get();
      
 
     return $db_query;
         
     }
    
-    public function getPostdata($post_id,$seller_user_id){
+    public function getPostdata($lgtks_post_id,$seller_user_id){
       try{
 
           return DB::table('lgtks_posts as lp')
@@ -86,7 +89,7 @@ class BuyerSearch extends Model
                  ->leftjoin('tracking_types as tt','tt.id','=','lp.tracking_type')
                  ->leftjoin('lgtks_users as lu','lu.id','=','lp.user_id')
                  //->leftjoin('lgtks_users as lu','lu.buisness_info_id','=','business_informations.id')
-                ->where(array('lp.user_id'=>$seller_user_id,'lp.id'=>$post_id))
+                ->where(array('lp.user_id'=>$seller_user_id,'lp.id'=>$lgtks_post_id))
                 ->select('lp.*','pld.village as from_loc','pldd.village as to_loc','vt.vehicle_type','lt.load_type','pyt.payment_term','lu.name','tt.tracking_type')
                 ->get();
 
@@ -99,7 +102,7 @@ class BuyerSearch extends Model
 
     }
 
-    public function deleteOrder($seller_id,$buyer_id,$post_id,$order_id){
+    public function deleteOrder($seller_id,$buyer_id,$lgtks_post_id,$order_id){
       
       DB::table('lgtks_orders')->where('id',$order_id)->delete();
       
@@ -108,7 +111,7 @@ class BuyerSearch extends Model
 
     public function updateOrder($data,$buyer_id){
 
-        $order_status  =    DB::table('order_status')->where('status','booked')->pluck('id');
+        $order_status  =    DB::table('order_status')->where('status','Booked')->pluck('id');
 
         foreach ($data as $key => $value) {
            
@@ -147,13 +150,13 @@ class BuyerSearch extends Model
 
     }
   
-  public function getcartDetails($buyer_user_id,$getcartDetails,$seller_id,$post_id){
+  public function getcartDetails($buyer_user_id,$getcartDetails,$seller_id,$lgtks_post_id){
     try{
        
        $getbuyerCart = DB::table('lgtks_orders')
-                       ->where(array('id'=>$post_id,'user_id'=>$buyer_user_id))->get();
+                       ->where(array('id'=>$lgtks_post_id,'user_id'=>$buyer_user_id))->get();
        
-       $order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
+       $order_status  =    DB::table('order_status')->where('status','Cart')->pluck('id');
        
        if(empty($getbuyerCart)){
 
@@ -162,26 +165,30 @@ class BuyerSearch extends Model
                            ->leftjoin('pincode_location_details as pldd','pldd.id','=','lp.to_loc')
                            ->leftjoin('vehicle_types as vt','vt.id','=','lp.veh_type')
                            ->leftjoin('load_types as lt','lt.id','=','lp.load_type')
-                           ->where('lp.id',$post_id)
+                           ->where('lp.id',$lgtks_post_id)
                            ->select('*','pld.district_name as from_loct','pldd.district_name as to_loct')
                            ->get();
      
      
-     
+     //print_r($getcartDetails);exit;
 
      foreach($seller_data as $seller){                   
       
-      $dbInsert   =  ['id' => $post_id,
-                      'post_id' => $post_id,
+      $dbInsert   =  ['id' => $lgtks_post_id,
+                      'lgtks_post_id' => $lgtks_post_id,
                       'consignor_name'=>$getcartDetails['seller_name'],
                       'consignor_mobile_number'=>$getcartDetails['seller_mobile_number'],
                       'consignor_email'=>$getcartDetails['seller_email_id'],
-                      'consignor_address'=>$getcartDetails['seller_address1'],
+                      'consignor_address1'=>$getcartDetails['seller_address1'],
+                      'consignor_address2'=>$getcartDetails['seller_address2'],
+                      'consignor_address3'=>$getcartDetails['seller_address3'],
                       'consignor_pincode'=>$getcartDetails['seller_pincode'],
                       'consignee_name'=>$getcartDetails['buyer_name'],
                       'consignee_mobile_number'=>$getcartDetails['buyer_mobile_number'],
                       'consignee_email'=>$getcartDetails['buyer_email_id'],
-                      'consignee_address'=>$getcartDetails['buyer_address1'],
+                      'consignee_address1'=>$getcartDetails['buyer_address1'],
+                      'consignee_address2'=>$getcartDetails['buyer_address2'],
+                      'consignee_address3'=>$getcartDetails['buyer_address3'],
                       'consignee_pincode'=>$getcartDetails['buyer_pincode'],
                       'user_id' =>$buyer_user_id,
                       'price'=>$seller->price,
@@ -205,7 +212,7 @@ class BuyerSearch extends Model
        
         return DB::table('lgtks_orders as lo')
                 ->leftjoin('lgtks_users as lu','lo.user_id','=','lu.id') 
-                ->leftjoin('lgtks_posts as lp','lp.id','=','lo.post_id')
+                ->leftjoin('lgtks_posts as lp','lp.id','=','lo.lgtks_post_id')
                 ->leftjoin('pincode_location_details as pld','pld.id','=','lp.from_loc')
                 ->leftjoin('pincode_location_details as pldd','pldd.id','=','lp.to_loc')       
                 ->where(array('lo.user_id'=>$buyer_user_id,'lo.order_status'=>$order_status))
@@ -283,11 +290,11 @@ class BuyerSearch extends Model
 
   public function getOrders($buyer_id){
     try{
-          $order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
+          $order_status  =    DB::table('order_status')->where('status','Cart')->pluck('id');
 
           return DB::table('lgtks_orders as lo')
                 ->leftjoin('lgtks_users as lu','lo.user_id','=','lu.id') 
-                ->leftjoin('lgtks_posts as lp','lp.id','=','lo.post_id')
+                ->leftjoin('lgtks_posts as lp','lp.id','=','lo.lgtks_post_id')
                 ->leftjoin('pickup_location_types as plt','plt.id','=','lo.source_location_type')
                 ->leftjoin('pickup_location_types as pltt','pltt.id','=','lo.destination_location_type')
                 ->leftjoin('pincode_location_details as pld','pld.id','=','lp.from_loc')

@@ -79,7 +79,7 @@
                 <div class="cell-1">
                     <div class="menu-nav-2">
                         <ul>
-                            @if(Session::get('seller_buyer_flag') == 2)
+                            @if(Session::get('is_seller') == 2)
                             <li><a href="#" class="select-1">Seller</a></li>
                             @else
                             <li><a href="#" class="select-1">Buyer</a></li>

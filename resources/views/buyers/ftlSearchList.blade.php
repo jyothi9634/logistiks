@@ -152,7 +152,7 @@
                                                 <td class="c-5">{{$searchResult->load_commitment_per_day}} @if($searchResult->load_commitment_per_day == 1)Load @else Loads @endif</td>
                                                 <td class="c-6">{{$searchResult->load_commitment_per_day}} @if($searchResult->load_commitment_per_day == 1)Load @else Loads @endif</td>
                                                 <td class="c-7">
-                                                    <a href="bookNow/<?php echo $searchResult->user_id .'/'. $searchResult->post_id; ?>" class="button-red-2 margin-tl-1">Book Now</a>
+                                                    <a href="bookNow/<?php echo $searchResult->user_id .'/'. $searchResult->lgtks_post_id; ?>" class="button-red-2 margin-tl-1">Book Now</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -236,7 +236,7 @@
 <label for="surname">ToAddrss:</label>  <input type="text" name="to_user_name" id="to_user_name"><br/>
 <input type="hidden" name="to_email" id="to_email" value="">
 <input type="hidden" name="from_email" id="from_email" value="">
-<label for="mobile">Subject:</label>    <input type="text" name="post_id" id="post_id"><br/>
+<label for="mobile">Subject:</label>    <input type="text" name="lgtks_post_id" id="lgtks_post_id"><br/>
 <label for="work">Body: </label>        <textarea id="messageDescription" placeholder="Body *" name="messageDescription" cols="50" rows="10"></textarea><br/>
 <br class="clear" />
 <br />

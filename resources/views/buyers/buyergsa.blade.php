@@ -46,10 +46,10 @@
                           <li>Destination Type:{{$buyerconfirmorders[0]->dest_loc}}</li>
                           <li>Consignor Name:{{$buyerconfirmorders[0]->consignor_name}}</li>
                           <li>Consignor Mobile:{{$buyerconfirmorders[0]->consignor_mobile_number}}</li>
-                          <li>Consignor Address:{{$buyerconfirmorders[0]->consignor_address}}</li>
+                          <li>Consignor Address:{{$buyerconfirmorders[0]->consignor_address1}}</li>
                           <li>Consignee Name:{{$buyerconfirmorders[0]->consignee_name}}</li>
                           <li>Consignee Mobile:{{$buyerconfirmorders[0]->consignee_mobile_number}}</li>
-                          <li>Consignee Address:{{$buyerconfirmorders[0]->consignee_address}}</li>
+                          <li>Consignee Address:{{$buyerconfirmorders[0]->consignee_address1}},{{$buyerconfirmorders[0]->consignee_address2}},{{$buyerconfirmorders[0]->consignee_address3}}</li>
                           <li>Seller Details</li>
                           <li>Seller Name:{{$getsellerInfo[0]->first_name}}</li>
                           <li>Year of ESTD.:{{$getsellerInfo[0]->year_of_establishment}}

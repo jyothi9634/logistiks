@@ -119,13 +119,13 @@ $(document).ready(function () {
         var to_email_id = $(this).attr('data_email_id');
         var to_user_name = $(this).attr('data_user_name');
         var user_id = $(this).attr('data_to_user_id');
-        var post_id = $(this).attr('data_post_id');
+        var lgtks_post_id = $(this).attr('data_post_id');
         $("#messageModel").css("display","block");
         $("#to_email").val(to_email_id);
         $("#to_user_name").val(to_user_name);
         $("#from_user_name").val("Rakesh");
         $("#from_email").val("phpsureshk11@gmail.com");
-        $("#post_id").val(post_id);
+        $("#lgtks_post_id").val(lgtks_post_id);
         
     });    
 });    

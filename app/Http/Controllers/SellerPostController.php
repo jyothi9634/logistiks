@@ -25,7 +25,7 @@ class SellerPostController extends Controller{
           
           # code...
         }
-        Session::put('seller_buyer_flag',$seller[0]->seller_buyer_flag);  
+        Session::put('is_seller',$seller[0]->is_seller);  
         Session::put('name',$seller[0]->name);  
         
         
@@ -252,7 +252,7 @@ if(empty($_POST['disc_name']) || empty($_POST['disc_type']) || empty($_POST['dis
       
             for($k=0;$k<count($jhfrm_loc);$k++){
                   for($j=0;$j<count($disc_name);$j++){  
-$nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$jhfrm_loc[$k],'to_loc'=>$jhto_loc[$k],'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j],'load_type'=>$jhload_typ[$k],'veh_type'=>$jhveh_typ[$k],'transit_days'=>$transit_days[$k],'booking_cutoff_time'=>$book_cutoff[$k],'payment_term'=>$payment,'created_on'=>date("Y-m-d"),'load_commitment_per_day'=>$load_limit,'seller_buyer_flag'=>'0','price_type'=>'1','price'=>$jhprice[$k]];  
+          $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$title,'from_loc'=>$jhfrm_loc[$k],'to_loc'=>$jhto_loc[$k],'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'discount_type'=>$disc_type[$j],'discount_rate'=>$discount[$j],'credit_days'=>$crid_day[$j],'load_type'=>$jhload_typ[$k],'veh_type'=>$jhveh_typ[$k],'transit_days'=>$transit_days[$k],'booking_cutoff_time'=>$book_cutoff[$k],'payment_term'=>$payment,'created_on'=>date("Y-m-d"),'load_commitment_per_day'=>$load_limit,'seller_buyer_flag'=>'0','price_type'=>'1','price'=>$jhprice[$k]];  
             }
          }
     }
@@ -460,8 +460,8 @@ $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$titl
     }else{
        exit;
      }
-    if($request->input('post_id') != NULL){
-      $post_id        = $request->input('post_id');
+    if($request->input('lgtks_post_id') != NULL){
+      $lgtks_post_id        = $request->input('lgtks_post_id');
     }else{
        exit;
      }
@@ -473,7 +473,7 @@ $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$titl
   
      $need_insurance        = $request->input('need_insurance'); 
    $create=date("Y-m-d");
-  $data=['id'=>$post_id,'from_location'=>1,'to_location'=>2,'consignor_name'=>$consignor_name,'consignor_mobile_number'=>$consignor_mobile_number,'consignor_email'=>$consignor_email,'consignor_address1'=>$consignor_address1,'consignor_address2'=>$consignor_address2,'consignor_address3'=>$consignor_address3,'consignor_pincode'=>$consignor_pincode,'consignor_city'=>$consignor_city,'consignor_state'=>$consignor_state,'consignee_name'=>$consignee_name,'consignee_mobile_number'=>$consignee_mobile_number,'consignee_email'=>$consignee_email,'consignee_address1'=>$consignee_address1,'consignee_address2'=>$consignee_address2,'consignee_address3'=>$consignee_address3,'consignee_pincode'=>$consignee_pincode,'consignee_state'=>$consignee_state,'consignee_city'=>$consignee_city,'consignment'=>'1','transit_days'=>$transit_days,'need_insurance'=>$transit_days,'additional_details'=>$additional_details,'ordered_date'=>$ordered_date,'package_type'=>$package_type,'consignment_type'=>$consignment_type,'consignment_value'=>$consignment_value,'payment_term'=>$payment_term,'payment_method'=>$adv_payment_type,'price'=>$price,'tracking_type'=>$tracking_type,'created_on'=>$create,'user_id'=>$user_id,'lgtks_post_id'=>$post_id];
+  $data=['id'=>$lgtks_post_id,'from_location'=>1,'to_location'=>2,'consignor_name'=>$consignor_name,'consignor_mobile_number'=>$consignor_mobile_number,'consignor_email'=>$consignor_email,'consignor_address1'=>$consignor_address1,'consignor_address2'=>$consignor_address2,'consignor_address3'=>$consignor_address3,'consignor_pincode'=>$consignor_pincode,'consignor_city'=>$consignor_city,'consignor_state'=>$consignor_state,'consignee_name'=>$consignee_name,'consignee_mobile_number'=>$consignee_mobile_number,'consignee_email'=>$consignee_email,'consignee_address1'=>$consignee_address1,'consignee_address2'=>$consignee_address2,'consignee_address3'=>$consignee_address3,'consignee_pincode'=>$consignee_pincode,'consignee_state'=>$consignee_state,'consignee_city'=>$consignee_city,'consignment'=>'1','transit_days'=>$transit_days,'need_insurance'=>$transit_days,'additional_details'=>$additional_details,'ordered_date'=>$ordered_date,'package_type'=>$package_type,'consignment_type'=>$consignment_type,'consignment_value'=>$consignment_value,'payment_term'=>$payment_term,'payment_method'=>$adv_payment_type,'price'=>$price,'tracking_type'=>$tracking_type,'created_on'=>$create,'user_id'=>$user_id,'lgtks_post_id'=>$post_id];
       print_r($data);        
       if($data != NULL){
        SellerPostComponent::PostMasterComponent($data);
@@ -485,8 +485,8 @@ $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$titl
   }
     
     
-      public function SellerEnquiries($user_id,$post_id){
-        $data =SellerPostComponent::GetSellerOffers($user_id,$post_id);
+      public function SellerEnquiries($user_id,$lgtks_post_id){
+        $data =SellerPostComponent::GetSellerOffers($user_id,$lgtks_post_id);
         return view('Seller.SellerEnquiries',compact('data'));
     }
     

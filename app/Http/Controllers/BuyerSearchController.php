@@ -65,7 +65,7 @@ class BuyerSearchController extends BaseController {
         $session_id = Session::get('user_id');
         $buyer = SellerPostComponent::SellerSession($session_id);
         
-        Session::put('seller_buyer_flag',$buyer[0]->seller_buyer_flag);  
+        Session::put('is_seller',$buyer[0]->is_seller);  
         Session::put('name',$buyer[0]->name);
 
         return view('buyers.search', ['data' => $data,'message'=>$message,'inputData'=>$inputData]);
@@ -101,7 +101,7 @@ class BuyerSearchController extends BaseController {
                     $inputData['searchType'] = "noramlSearch";
                     $BuyerSearchResult = BuyerSearchComponent::SellerPosts($inputData);
                     $loadType = $this->buyerSearchComponent->getLoadType($inputData);
-                    
+                    //print_r($BuyerSearchResult);exit;
                     $vehicleType = $this->buyerSearchComponent->getVehType($inputData);
                     
                     $inputData['load_type'] = $loadType->load_type;
@@ -142,18 +142,18 @@ class BuyerSearchController extends BaseController {
      * 
      */
     
-    public function bookNow($seller_user_id,$post_id){
+    public function bookNow($seller_user_id,$lgtks_post_id){
         try{
             
             $buyer_id = Session::get('user_id') ;
             
-            $seller_post_details   = $this->buyer->getPostdata($post_id,$seller_user_id);
+            $seller_post_details   = $this->buyer->getPostdata($lgtks_post_id,$seller_user_id);
             
             $buyer_booknow_details = $this->buyer->buyerBooknow($seller_user_id);
             
             $buyer_details = $this->buyer->buyerInfo($buyer_id);
 
-            return view('Buyers.booknow',['data'=>$seller_post_details,'buyer_booknow_details'=>$buyer_booknow_details,'buyer_user_id'=>$buyer_id,'seller_user_id'=>$seller_user_id,'post_id'=>$post_id,'buyer_details'=>$buyer_details]);
+            return view('Buyers.booknow',['data'=>$seller_post_details,'buyer_booknow_details'=>$buyer_booknow_details,'buyer_user_id'=>$buyer_id,'seller_user_id'=>$seller_user_id,'lgtks_post_id'=>$lgtks_post_id,'buyer_details'=>$buyer_details]);
             
         
         } catch (Exception $ex) {
@@ -162,13 +162,14 @@ class BuyerSearchController extends BaseController {
         }
     }
     
-    public function Cart($buyer_user_id,$seller_id,$post_id){
+    public function Cart($buyer_user_id,$seller_id,$lgtks_post_id){
         try{
             
             $buyerCartDetails = Input::all();
             
-            $getCart = $this->buyer->getcartDetails($buyer_user_id,$buyerCartDetails,$seller_id,$post_id);
+            $getCart = $this->buyer->getcartDetails($buyer_user_id,$buyerCartDetails,$seller_id,$lgtks_post_id);
             
+
             $total_sum = 0;
             
             
@@ -179,7 +180,7 @@ class BuyerSearchController extends BaseController {
 
                 $seller_name = DB::table('lgtks_users as lu')
                               ->leftjoin('lgtks_posts as lp','lp.user_id','=','lu.id')
-                              ->where('lp.id',$value->post_id)
+                              ->where('lp.id',$value->lgtks_post_id)
                               ->pluck('lu.name');
 
                  $value->seller_name =   $seller_name[0];          
@@ -188,7 +189,7 @@ class BuyerSearchController extends BaseController {
             }       
             
 
-            return view('Buyers.cart',['cart_data'=>$getCart,'total_sum'=>$total_sum,'seller_id'=>$seller_id,'buyer_id'=>$buyer_user_id,'post_id'=>$post_id]);
+            return view('Buyers.cart',['cart_data'=>$getCart,'total_sum'=>$total_sum,'seller_id'=>$seller_id,'buyer_id'=>$buyer_user_id,'lgtks_post_id'=>$lgtks_post_id]);
         
         }
         catch(Exception $ex){
@@ -204,14 +205,14 @@ class BuyerSearchController extends BaseController {
 
     }
     
-    public function buyerGsa($buyer_id,$seller_id,$post_id){
+    public function buyerGsa($buyer_id,$seller_id,$lgtks_post_id){
         try{
             
             //$getGsadetails = $this->buyer->getGsadetails($buyer_id,$seller_id);
 
             $buyerconfirmorders = $this->buyer->getOrders($buyer_id);
             
-            $seller_post_details   = $this->buyer->getPostdata($post_id,$seller_id);
+            $seller_post_details   = $this->buyer->getPostdata($lgtks_post_id,$seller_id);
            
             $getsellerInfo = $this->buyer->getsellerInfo($seller_id);
            
@@ -226,7 +227,7 @@ class BuyerSearchController extends BaseController {
 
                 $seller_name = DB::table('lgtks_users as lu')
                               ->leftjoin('lgtks_posts as lp','lp.user_id','=','lu.id')
-                              ->where('lp.id',$value->post_id)
+                              ->where('lp.id',$value->lgtks_post_id)
                               ->pluck('lu.name');
 
                  $value->seller_name =   $seller_name[0];  
@@ -258,7 +259,7 @@ class BuyerSearchController extends BaseController {
 
                 $seller_name = DB::table('lgtks_users as lu')
                               ->leftjoin('lgtks_posts as lp','lp.user_id','=','lu.id')
-                              ->where('lp.id',$value->post_id)
+                              ->where('lp.id',$value->lgtks_post_id)
                               ->pluck('lu.name');
 
                  $value->seller_name =   $seller_name[0]; 

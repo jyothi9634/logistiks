@@ -104,8 +104,8 @@
                 </tbody></table>
             </div>
 
-  <!-- {!! Form::open(array('url' => 'buyer/Cart'.'/'.$buyer_user_id.'/'.$seller_user_id.'/'.$post_id,'id'=>'formId')) !!}   -->
-<form action="/buyer/Cart/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>/<?php echo $post_id; ?>" method="post" name="formId" id="formId" autocomplete="off">
+
+<form action="/buyer/Cart/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>/<?php echo $lgtks_post_id; ?>" method="post" name="formId" id="formId" autocomplete="off">
     <div class="column-1 field-main">
               <div class="grid-3">
                 <ul>
@@ -365,7 +365,7 @@
                   <td align="right" valign="middle"></td>
                   <td width="250" align="right" valign="middle">
                   <input type="submit" id = "add_to_cart" name="add_to_cart" class="button-red-1" value="Add To Cart">
-                  <!-- <a href="/buyer/buyerGsa/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>/<?php echo $post_id?>" class="button-red-1">CHECK OUT</a> -->
+                  
                   </td>
                 </tr>
               </tbody></table>

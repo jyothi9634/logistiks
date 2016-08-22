@@ -58,12 +58,12 @@ Route::any('logistiks/Buyersearch','LogistiksController@buyerSearch');
 Route::any('/buyer/search' ,'BuyerSearchController@index');  
 
 Route::any('/buyer/srchPost' ,'BuyerSearchController@buyerSearch');  
-Route::any('/buyer/bookNow/{seller_user_id}/{post_id}' ,'BuyerSearchController@bookNow');  
-Route::any('/buyer/Cart/{buyer_user_id}/{seller_user_id}/{post_id}' ,'BuyerSearchController@Cart');  
-Route::any('/buyer/buyerGsa/{buyer_user_id}/{seller_user_id}/{post_id}' ,'BuyerSearchController@buyerGsa');  
+Route::any('/buyer/bookNow/{seller_user_id}/{lgtks_post_id}' ,'BuyerSearchController@bookNow');  
+Route::any('/buyer/Cart/{buyer_user_id}/{seller_user_id}/{lgtks_post_id}' ,'BuyerSearchController@Cart');  
+Route::any('/buyer/buyerGsa/{buyer_user_id}/{seller_user_id}/{lgtks_post_id}' ,'BuyerSearchController@buyerGsa');  
 Route::any('/buyer/buyerConfirmation/{buyer_user_id}' ,'BuyerSearchController@buyerConfirmation');  
 Route::any('/buyer/buyerBilling' ,'BuyerSearchController@buyerBilling');
-Route::any('/buyer/deleteOrder/{seller_user_id}/{buyer_user_id}/{post_id}/{order_id}' ,'BuyerSearchController@deleteOrder'); 
+Route::any('/buyer/deleteOrder/{seller_user_id}/{buyer_user_id}/{lgtks_post_id}/{order_id}' ,'BuyerSearchController@deleteOrder'); 
 Route::any('/SellerRateCard','SellerPostController@index');
 Route::post('/check','SellerPostController@check');
 Route::any('/user/logOut','LoginController@logOut');

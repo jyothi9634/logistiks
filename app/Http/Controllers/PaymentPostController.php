@@ -51,7 +51,7 @@ class PaymentPostController extends Controller
         $user_id = Session::get('buyer_id');
         
         $result = DB::table('lgtks_users')->where('id',$user_id)->update([
-          'seller_buyer_flag'=>2 // seller
+          'is_seller'=>2 // seller
           ]);
         
         
