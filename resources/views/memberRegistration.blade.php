@@ -71,8 +71,9 @@
             <div class="registration-individual-row2">
                 By clicking "<a href="#" class="link-red">Sign up</a>" or "<a href="#" class="link-red">Sign In</a>" <br>
         I acknowledge and agree to the <a href="memberRegistration/termsOfuse" class="normal-link-line" target="_blank"><i>Terms of use.</i></a> ,<br>
-         <a href="memberRegistration/privacyPolicy" class="normal-link-line" target="_blank"><i>Privacy Policy.</i></a> and 
-         <a href="memberRegistration/cancellationPolicy" class="normal-link-line" target="_blank"><i>Cancellation Policy.</i></a>
+         <a href="memberRegistration/privacyPolicy" class="normal-link-line" target="_blank"><i>Privacy Policy.</i></a>, 
+         <a href="memberRegistration/cancellationPolicy" class="normal-link-line" target="_blank"><i>Cancellation Policy.</i></a> and
+         <a href="memberRegistration/aboutUs" class="normal-link-line" target="_blank"><i>About Us.</i></a>
              </div>
             
             <div id="otp_signup" style="display:none;">

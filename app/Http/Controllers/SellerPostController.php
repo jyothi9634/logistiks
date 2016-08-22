@@ -148,10 +148,12 @@ class SellerPostController extends Controller{
                 
            if($data != NULL){
              SellerPostComponent::SellerComponent($data,$nextdata);
+
            }else{
                 return redirect()->back();
             }
              
+      return Redirect::to('memberRegistration');
   }else{
      //if user adds multiple add routes, then get data from js file.
         if($request->input('frm_loc') != NULL){
@@ -217,6 +219,9 @@ class SellerPostController extends Controller{
         $jhload_typ=$_POST['jhload_typ'];  
         $jhprice=$_POST['jhprice'];
         $jhbuyer=$_POST['jhbuyer'];
+
+        $payment = 1;
+        
         for($i=0;$i<count($jhfrm_loc);$i++){
           $data[$i]=['user_id'=>'1','title'=>$title,'from_loc'=>$jhfrm_loc[$i],'to_loc'=>$jhto_loc[$i],'dispatch_dt'=>$dispatch,'delivery_dt'=>$delivery,'load_type'=>$jhload_typ[$i],'veh_type'=>$jhveh_typ[$i],'load_commitment_per_day'=>$load_limit,'price_type'=>'1','price'=>$jhprice[$i],'transit_days'=>$transit_days[$i],'payment_term'=>$payment,'booking_cutoff_time'=>$book_cutoff[$i],'tracking_type'=>$tracking,'created_on'=>date("Y-m-d"),'seller_buyer_flag'=>$jhbuyer[$i],'private_public_flag'=>'0'];  
          } 
@@ -254,8 +259,12 @@ $nextdata[]=['private_public_flag'=>'1','user_id'=>$disc_name[$j],'title'=>$titl
          
          
          SellerPostComponent::SellerComponent($data,$nextdata);
+        
+        return Redirect::to('memberRegistration');
      }
       
+    
+
     }
     
     

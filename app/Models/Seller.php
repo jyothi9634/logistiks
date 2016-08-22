@@ -30,12 +30,15 @@ class Seller extends Model
     
     public static function SellerPostInsertion($data,$nextdata){
       
-
       $data[0]['user_id'] = Session::get('user_id');
+      $data[0]['qty'] = 1;
       
-      DB::table('lgtks_posts')->insert($data); // inserting add routes data to lgkts_posts table
+      DB::table('lgtks_posts')->insert($data); 
+
+
+      // inserting add routes data to lgkts_posts table
         if(empty($nextdata)){
-            exit;
+            return 'false';
         }else{
             foreach($nextdata as $discData){
               $i=0;
@@ -48,11 +51,11 @@ class Seller extends Model
               $prt_data=array('post_id'=>$Private_post_id,'user_id'=>$userid);
 
               $w= DB::table('private_posts')->insert($prt_data); // inserting only user id and post id  in the private post table for discounts
-                echo"cust";print_r($discData);
-
-              $i++;
+                $i++;
              }
         }
+   
+
    }
     
     public static function SearchPost($data){

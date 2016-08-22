@@ -76,11 +76,18 @@ class BuyerSearch extends Model
     public function getPostdata($post_id,$seller_user_id){
       try{
 
-          //$order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
-          
-           return DB::table('lgtks_posts as lp')
-                ->leftjoin('lgtks_users as lu','lp.user_id','=','lu.id')         
+          return DB::table('lgtks_posts as lp')
+                 ->leftjoin('pincode_location_details as pld','pld.id','=','lp.from_loc')
+                 ->leftjoin('pincode_location_details as pldd','pldd.id','=','lp.to_loc')
+                 ->leftjoin('vehicle_types as vt','vt.id','=','lp.veh_type')
+                 ->leftjoin('load_types as lt','lt.id','=','lp.load_type')
+                 ->leftjoin('price_types as pt','pt.id','=','lp.price_type')
+                 ->leftjoin('payment_terms as pyt','pyt.id','=','lp.payment_term')
+                 ->leftjoin('tracking_types as tt','tt.id','=','lp.tracking_type')
+                 ->leftjoin('lgtks_users as lu','lu.id','=','lp.user_id')
+                 //->leftjoin('lgtks_users as lu','lu.buisness_info_id','=','business_informations.id')
                 ->where(array('lp.user_id'=>$seller_user_id,'lp.id'=>$post_id))
+                ->select('lp.*','pld.village as from_loc','pldd.village as to_loc','vt.vehicle_type','lt.load_type','pyt.payment_term','lu.name','tt.tracking_type')
                 ->get();
 
       }
@@ -144,7 +151,7 @@ class BuyerSearch extends Model
     try{
        
        $getbuyerCart = DB::table('lgtks_orders')
-                       ->where(array('post_id'=>$post_id,'user_id'=>$buyer_user_id))->get();
+                       ->where(array('id'=>$post_id,'user_id'=>$buyer_user_id))->get();
        
        $order_status  =    DB::table('order_status')->where('status','Add to Cart')->pluck('id');
        
@@ -213,7 +220,7 @@ class BuyerSearch extends Model
     }
   }
 
-  public function getGsadetails($buyer_id,$seller_id){
+  /*public function getGsadetails($buyer_id,$seller_id){
     try{
           
           $gsa_data =  DB::table('lgtks_orders as lo')
@@ -262,6 +269,16 @@ class BuyerSearch extends Model
       return $ex->getMessage();
     
     }
+  }*/
+
+  public function getsellerInfo($id){
+
+     $reg_id = DB::table('lgtks_users')->where('id',$id)->pluck('lgtks_registrations_id');
+
+     return DB::table('buisness_informations as bi')
+            ->leftjoin('registrations as rg','rg.buisness_info_id','=','bi.id')
+            ->where('rg.id',$reg_id[0])->get();
+
   }
 
   public function getOrders($buyer_id){
@@ -271,10 +288,12 @@ class BuyerSearch extends Model
           return DB::table('lgtks_orders as lo')
                 ->leftjoin('lgtks_users as lu','lo.user_id','=','lu.id') 
                 ->leftjoin('lgtks_posts as lp','lp.id','=','lo.post_id')
+                ->leftjoin('pickup_location_types as plt','plt.id','=','lo.source_location_type')
+                ->leftjoin('pickup_location_types as pltt','pltt.id','=','lo.destination_location_type')
                 ->leftjoin('pincode_location_details as pld','pld.id','=','lp.from_loc')
                 ->leftjoin('pincode_location_details as pldd','pldd.id','=','lp.to_loc')       
                 ->where(array('lo.user_id'=>$buyer_id,'lo.order_status'=>$order_status))
-                ->select('lo.*','lp.dispatch_dt','lp.delivery_dt','pld.village as from_loc','pldd.village as to_loc','lu.name')
+                ->select('lo.*','lp.dispatch_dt','lp.delivery_dt','pld.village as from_loc','pldd.village as to_loc','lu.name','plt.pickup_location as source_loc','pltt.pickup_location as dest_loc')
                 ->get();
 
     }

@@ -14,6 +14,8 @@
 <script src="/js/main.js"></script>
 <script src="/js/addroute.js"></script> 
 <script src="/js/customizeRoute.js"></script> 
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/additionalMethods.js"></script>
 
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">

@@ -54,7 +54,7 @@
                                         <ul class="pull-right">
                                             <input type="button"  id="modify_search" name="modify_search"  value="Modify Search" class="modify-button" onclick="browserBack()">
                                             @if(!empty($searchResults))
-                                            <li><a href="#" id="showhide-btn-3"><img src="/images/filter.png" width="14" height="10" alt="filter">Filters</a></li>
+                                            <!-- <li><a href="#" id="showhide-btn-3"><img src="/images/filter.png" width="14" height="10" alt="filter">Filters</a></li> -->
                                             @endif
                                         </ul>
                                     </div>
@@ -138,7 +138,7 @@
                                             </tr>
                                         </tbody></table>
                                 </div>
-                                @if(!empty($searchResults))
+                                 @if(!empty($searchResults))
                                 <div class="ftlSearchList" id="ftlSearchList">
                                     <?php $i = 1; ?>
                                     @foreach($searchResults as $searchResult)
@@ -146,11 +146,11 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="post-table-2">
                                         <tbody><tr>
                                                 <td class="c-1">{{$searchResult->name}}</td>
-                                                <td class="c-2">{{$searchResult->valid_from_date}}</td>
-                                                <td class="c-3">{{$searchResult->valid_to_date}}</td>
+                                                <td class="c-2">@if($searchResult->dispatch_dt){{dateFormateToDMY($searchResult->dispatch_dt)}}@endif</td>
+                                                <td class="c-3">@if($searchResult->delivery_dt){{dateFormateToDMY($searchResult->delivery_dt)}}@endif</td>
                                                 <td class="c-4">{{$searchResult->price}}/-</td>
-                                                <td class="c-5">10 Loads</td>
-                                                <td class="c-6">20 Loads</td>
+                                                <td class="c-5">{{$searchResult->load_commitment_per_day}} @if($searchResult->load_commitment_per_day == 1)Load @else Loads @endif</td>
+                                                <td class="c-6">{{$searchResult->load_commitment_per_day}} @if($searchResult->load_commitment_per_day == 1)Load @else Loads @endif</td>
                                                 <td class="c-7">
                                                     <a href="bookNow/<?php echo $searchResult->user_id .'/'. $searchResult->post_id; ?>" class="button-red-2 margin-tl-1">Book Now</a>
                                                 </td>
@@ -158,7 +158,7 @@
                                             <tr>
                                                 <td class="c-1"><img src="/images/ellipse-1.png" alt="ellipse" width="36" height="6"></td>
                                                 <td class="c-2">&nbsp;</td>
-                                                <td class="c-3"><span>Open (Valid for 20 Days)</span></td>
+                                                <td class="c-3"><span></span></td>
                                                 <td class="c-4">&nbsp;</td>
                                                 <td class="c-5">&nbsp;</td>
                                                 <td class="c-6">&nbsp;</td>
@@ -179,7 +179,7 @@
                                                     <td class="c-7">T&amp;C</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="c-1"><span class="c-3"><span>{{$searchResult->private_public_flag}}</span></span></td>
+                                                    <td class="c-1"><span class="c-3"><span>@if($searchResult->private_public_flag==0){{'Public'}} @elseif($searchResult->private_public_flag==1){{'Private'}}@endif</span></span></td>
                                                     <td class="c-2"><span class="c-3"><span>{{$searchResult->load_type}}</span></span></td>
                                                     <td class="c-3"><span>{{$searchResult->vehicle_type}}</span></td>
                                                     <td class="c-4"><span class="c-3"><span>{{$searchResult->transit_days}}</span></span></td>
@@ -204,15 +204,18 @@
                                 
                                 
                                 <form name="ftlSearch" id="ftlSearch" method="post" action="#">
-                                    <input type="hidden" name="from_loc" id="from_loc" value="Adilabad">
-                                    <input type="hidden" name="to_loc" id="to_loc" value="Adilabad">
-                                    <input type="hidden" name="dispatch_dt" id="dispatch_dt" value="2016-08-06 00:00:00">
-                                    <input type="hidden" name="delivery_dt" id="delivery_dt" value="2016-08-10 00:00:00">
-                                    <input type="hidden" name="load_type" id="load_type" value="2">
-                                    <input type="hidden" name="qty" id="qty" value="1">
-                                    <input type="hidden" name="veh_type" id="veh_type" value="1">
+                                    <?php if(count($searchResults > 0)) { ?>
+                                    <input type="hidden" name="from_loc" id="from_loc" value="{{$searchResults[0]->from_loc}}">
+                                    <input type="hidden" name="to_loc" id="to_loc" value="{{$searchResults[0]->to_loc}}">
+                                    <input type="hidden" name="dispatch_dt" id="dispatch_dt" value="{{$searchResults[0]->dispatch_dt}}">
+                                    <input type="hidden" name="delivery_dt" id="delivery_dt" value="{{$searchResults[0]->delivery_dt}}">
+                                    <input type="hidden" name="load_type" id="load_type" value="{{$data['load_type']}}">
+                                    <input type="hidden" name="qty" id="qty" value="{{$searchResults[0]->qty}}">
+                                    <input type="hidden" name="veh_type" id="veh_type" value="{{$data['veh_type']}}">
                                     <input type="hidden" name="vehicle_dimensions" id="vehicle_dimensions" value="20x8x12">
+                                    <?php } ?>
                                 </form>
+
 
 
                             </div>

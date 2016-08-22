@@ -10,8 +10,9 @@ use App\Models\Seller;
 class SellerPostComponent{
     
     public static function SellerComponent($data,$nextdata){
-        echo"copo";print_r($nextdata);
+        
        Seller::SellerPostInsertion($data,$nextdata);
+       
     }
     
     

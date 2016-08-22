@@ -9,19 +9,19 @@
             <div class="tbl-1">
               <div class="row-1">
                 <div class="cell-1"> Seller &gt; Cart</div>
-                <div class="cell-1 text-right"> <a href="#" style="color:#ff0000">Back to Posts</a></div>
+                
               </div>
             </div>
           </div>
           <!--Content Start-->
           <div class="bg-sec1  relative-ps">
-           <div class="close-2"><a href="#"><img src="/images/close-1.png" alt="close"></a></div>
+           <!-- <div class="close-2"><a href="#"><img src="/images/close-1.png" alt="close"></a></div> -->
              <div class="column-1 field-main">
              
              <div class="new-table-1">
 			 			 
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-{!! Form::open(array('url' => 'buyer/buyerGsa'.'/'.$buyer_id.'/'.$seller_id)) !!} 
+{!! Form::open(array('url' => 'buyer/buyerGsa'.'/'.$buyer_id.'/'.$seller_id.'/'.$post_id)) !!} 
   <tbody><tr>
     <td>VENDOR NAME</td>
     <td>FROM</td>

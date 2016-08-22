@@ -247,6 +247,12 @@ class RegistrationController extends BaseController
 
   }
 
+  public function aboutUs(){
+
+      return view('aboutUs');
+
+  }
+
   public function sendOtp(){
 
     $mobile_number = Input::get('mobile_number');

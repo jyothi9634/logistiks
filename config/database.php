@@ -54,11 +54,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => '43.240.64.71',
+            'host' => 'mysqldb.c8u8blhmal4o.ap-south-1.rds.amazonaws.com',
             'port' => '3306',
             'database' => 'db_logistiks',
-            'username' => 'lgtks_developer',
-            'password' => 'Logistiks',
+            'username' => 'master',
+            'password' => 'check412',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

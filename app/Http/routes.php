@@ -15,6 +15,7 @@ Route::any('memberRegistration','RegistrationController@index');
 Route::any('memberRegistration/privacyPolicy','RegistrationController@privacyPolicy');
 Route::any('memberRegistration/termsOfuse','RegistrationController@termsOfuse');
 Route::any('memberRegistration/cancellationPolicy','RegistrationController@cancellationPolicy');
+Route::any('memberRegistration/aboutUs','RegistrationController@aboutUs');
 
 Route::any('registration/store','RegistrationController@store');
 //Route::any('individualRegistration','RegistrationController@indvReg');
@@ -59,7 +60,7 @@ Route::any('/buyer/search' ,'BuyerSearchController@index');
 Route::any('/buyer/srchPost' ,'BuyerSearchController@buyerSearch');  
 Route::any('/buyer/bookNow/{seller_user_id}/{post_id}' ,'BuyerSearchController@bookNow');  
 Route::any('/buyer/Cart/{buyer_user_id}/{seller_user_id}/{post_id}' ,'BuyerSearchController@Cart');  
-Route::any('/buyer/buyerGsa/{buyer_user_id}/{seller_user_id}' ,'BuyerSearchController@buyerGsa');  
+Route::any('/buyer/buyerGsa/{buyer_user_id}/{seller_user_id}/{post_id}' ,'BuyerSearchController@buyerGsa');  
 Route::any('/buyer/buyerConfirmation/{buyer_user_id}' ,'BuyerSearchController@buyerConfirmation');  
 Route::any('/buyer/buyerBilling' ,'BuyerSearchController@buyerBilling');
 Route::any('/buyer/deleteOrder/{seller_user_id}/{buyer_user_id}/{post_id}/{order_id}' ,'BuyerSearchController@deleteOrder'); 

@@ -301,7 +301,8 @@
                     </span> <span class="margin-left-1">
                     <input type="checkbox" name="checkbox_3" id="checkbox_3" class="css-checkbox" />
                     <label for="checkbox_3" class="checkbox_label">Credit Cart</label>
-                    </span> <span class="margin-left-1">
+                    </span> <s
+                    pan class="margin-left-1">
                     <input type="checkbox" name="checkbox_4" id="checkbox_4" class="css-checkbox" />
                     <label for="checkbox_4" class="checkbox_label">Debit Card</label>
                     </span></td> -->
@@ -316,7 +317,7 @@
                                 
                                     <label><input type="checkbox" name="payment[]" class="test" id="one"  value="1"> Credit</label>
                                     <label><input type="checkbox" name="payment[]"  class="test" id="two" value="2"> Debit</label>
-                                    <label><input type="checkbox" name="payment[]" id="three"  class="test" value="3"> Net</label>
+                                    <label><input type="checkbox" name="payment[]" id="three"  class="test" value="3"> NetBanking</label>
                                   </div>
 
                                   <div id="Options2">

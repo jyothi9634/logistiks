@@ -62,7 +62,7 @@
                 <tbody><tr>
                   <td width="12%">VENDOR</td>
                   <td width="12%">ROUTES</td>
-                  <td width="12%">DESPATCH DATE</td>
+                  <td width="12%">DISPATCH DATE</td>
                   <td width="12%">DELIVERY DATE</td>
                   <td width="12%">LOAD TYPE</td>
                   <td width="12%">VEHICLE TYPE</td>
@@ -75,7 +75,7 @@
                   <td valign="middle"><span>{{dateFormateToDMY($value->dispatch_dt)}}</span></td>
                   <td valign="middle"><span>{{dateFormateToDMY($value->delivery_dt)}}</span></td>
                   <td valign="middle"><span>{{$value->load_type}}</span></td>
-                  <td valign="middle"><span>{{$value->veh_type}}</span></td>
+                  <td valign="middle"><span>{{$value->vehicle_type}}</span></td>
                   <td valign="middle"><span>{{$value->qty}}</span></td>
                   <td align="right" valign="middle">&nbsp;</td>
                 </tr>
@@ -88,7 +88,7 @@
                     <td width="12%">PRICING</td>
                     <td width="12%">TRACKING</td>
                     <td width="12%">PAYMENT TERM</td>
-                    <td width="12%">T&amp;C</td>
+                    <!-- <td width="12%">T&amp;C</td> -->
                     <td style="width:5%">&nbsp;</td>
                   </tr>
                   <tr>
@@ -104,14 +104,14 @@
                 </tbody></table>
             </div>
 
-  {!! Form::open(array('url' => 'buyer/Cart'.'/'.$buyer_user_id.'/'.$seller_user_id.'/'.$post_id,'id'=>'formId')) !!}  
-
+  <!-- {!! Form::open(array('url' => 'buyer/Cart'.'/'.$buyer_user_id.'/'.$seller_user_id.'/'.$post_id,'id'=>'formId')) !!}   -->
+<form action="/buyer/Cart/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>/<?php echo $post_id; ?>" method="post" name="formId" id="formId" autocomplete="off">
     <div class="column-1 field-main">
               <div class="grid-3">
                 <ul>
                   <li>
                   <div class="select-box1">
-                      <select name="source_location_type" required="required">
+                      <select id="source_location_type" name="source_location_type" >
                           <option value="">Source - Location Type *</option>
                           @foreach($buyer_booknow_details['location_types'] as $location_values)
                          <option value="{{$location_values->id}}">{{$location_values->pickup_location}}</option>
@@ -121,7 +121,7 @@
                   </li>
                   <li>
                   <div class="select-box1">
-                     <select name="dest_location_type" required="required">
+                     <select id="dest_location_type" name="dest_location_type" >
                           <option value="">Destination - Location Type *</option>
                           @foreach($buyer_booknow_details['location_types'] as $location_values)
                          <option value="{{$location_values->id}}">{{$location_values->pickup_location}}</option>
@@ -131,7 +131,7 @@
                   </li>
                   <li>
                   <div class="select-box1">
-                   <select name="packaging_type" required="required">
+                   <select id="packaging_type" name="packaging_type" >
                        <option value="">Packaging - Type *</option>
                           @foreach($buyer_booknow_details['packing_types'] as $pack_values)
                          <option value="{{$pack_values->id}}">{{$pack_values->packaging_type}}</option>
@@ -144,11 +144,11 @@
               <div class="grid-3">
                 <ul>
                   <li>
-                  <input type="text" class="datepicker" placeholder="Dispatch Date* (Flex dates option)"  id="dispatch_dt" name="dispatch_dt">
+                  <input type="text" class="datepicker" placeholder="Dispatch Date* (Flex dates option)"  id="dispatch_dt" name="dispatch_dt" value="{{dateFormateToDMY($data[0]->dispatch_dt)}}">
                   </li>
                   <li>
                   <div class="select-box1">
-                      <select name="consignment_type" required="required">
+                      <select id="consignment_type" name="consignment_type" >
                          <option value="">Consignment - Type *</option>
                          @foreach($buyer_booknow_details['consignment_types'] as $consignment_values)
                          <option value="{{$consignment_values->id}}">{{$consignment_values->type}}</option>
@@ -244,17 +244,17 @@
                 <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_name" name="buyer_name" placeholder="Name*" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_name" name="buyer_name" placeholder="Name*" >
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_mobile_number" name="buyer_mobile_number" placeholder="Mobile Number*" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_mobile_number" name="buyer_mobile_number" placeholder="Mobile Number*" maxlength="10">
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_email_id" name="buyer_email_id" placeholder="E Mail*" required>
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_email_id" name="buyer_email_id" placeholder="E Mail*" >
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                 </ul>
@@ -263,17 +263,17 @@
               <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address1" name="buyer_address1" placeholder="Address 1*" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address1" name="buyer_address1" placeholder="Address 1*" maxlength="50">
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address2" name="buyer_address2" placeholder="Address 2">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address2" name="buyer_address2" placeholder="Address 2" maxlength="50">
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address3" name="buyer_address3" placeholder="Address 3">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_address3" name="buyer_address3" placeholder="Address 3" maxlength="50">
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
                     </span></li>
                 </ul>
@@ -282,19 +282,20 @@
               <div class="grid-3">
                 <ul>
                   <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_pincode" name="buyer_pincode" placeholder="Pincode*" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_pincode" name="buyer_pincode" placeholder="Pincode*" >
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_city"  name="buyer_city" placeholder="City*" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_city"  name="buyer_city" placeholder="City*" >
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class=""></span> </label>
                     </span></li>
                     
                     <li><span class="input input-logistiks">
-                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_state" name="buyer_state" placeholder="State*" required="required">
+                    <input class="animated-field animated-field-logistiks" type="text" id="buyer_state" name="buyer_state" placeholder="State*" >
                     <label class="animated-label animated-label-logistiks animated-label-logistiks-color-1" for="input-4"> <span class="animated-label-content animated-label-content-logistiks"></span> </label>
                     </span></li>
+                    <input type="hidden" id="check_status" name="check_status" value="1">
                 </ul>
               </div>
               
@@ -302,8 +303,8 @@
                 <ul>
                   
                   <li>
-                    <input type="checkbox" name="checkbox_1" id="checkbox_1" class="css-checkbox" onclick="needInsurance()">
-                    <label for="checkbox_1" class="checkbox_label">Need Insurance</label>
+                    <!-- <input type="checkbox" name="checkbox_1" id="checkbox_1" class="css-checkbox" onclick="needInsurance()">
+                    <label for="checkbox_1" class="checkbox_label">Need Insurance</label> -->
 
                     <!-- The Modal -->
                       <div id="myModal" class="modal">
@@ -342,7 +343,7 @@
                             <ul>
                              
                               <li style="float:right;"><span class="input input-logistiks">
-                              <input type="submit" id="submit_id" name="submit_id" value="Submit" class="button-red-1">
+                              <input type="submit" id="submit_id" name="submit_id" value="Add To Cart" class="button-red-1">
                               </span></li></ul>
                               
                               </div>
@@ -363,14 +364,14 @@
                 <tbody><tr>
                   <td align="right" valign="middle"></td>
                   <td width="250" align="right" valign="middle">
-                  <?php echo Form::submit('ADD TO CART',array('class' => 'button-red-1')); ?>
-                  <a href="/buyer/buyerGsa/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>" class="button-red-1">CHECK OUT</a>
+                  <input type="submit" id = "add_to_cart" name="add_to_cart" class="button-red-1" value="Add To Cart">
+                  <!-- <a href="/buyer/buyerGsa/<?php echo $buyer_user_id; ?>/<?php echo $seller_user_id; ?>/<?php echo $post_id?>" class="button-red-1">CHECK OUT</a> -->
                   </td>
                 </tr>
               </tbody></table>
             </div>
       
-      {!! Form::close() !!}
+          </form>
             <div class="display-none" id="showhide-content-2">
               <div class="column-1">
                 <div class="grid-5">
@@ -476,9 +477,98 @@
 
 // Get the modal
 $(document).ready(function () {
+ 
+ $('#formId').validate({ 
+        
+        rules: {
+
+      buyer_name: {
+              required: true
+              
+            },
+
+        buyer_mobile_number:  {
+
+          required : true,
+          mobileNumber: true
+
+        },
+
+        buyer_email_id: {
+                required: true,
+                email:true
+                
+            },  
+
+        buyer_address1: {
+                required: true
+                
+              },
+
+         buyer_address2: {
+                required: true
+                
+               },
+
+         buyer_pincode: {
+
+                required: true,
+                pincode:true
+            },          
+         
+         buyer_city: {
+              required: true
+              
+            },
+
+         buyer_state: {
+              required: true
+              
+            },
+         source_location_type: {
+              required: true
+              
+            },  
+         dest_location_type: {
+              required: true
+              
+            },  
+
+         packaging_type: {
+              required: true
+              
+            },  
+            
+         consignment_type: {
+              required: true
+              
+            },                 
+  },
+       /*     
+        submitHandler: function (marketformId) {
+            return false;
+        }*/
+    });
 
 
+    $("#buyer_mobile_number").keypress(function (e) {
+          
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                   return false;
+            }
 
+       });
+
+     $('#buyer_name').keydown(function (e) {
+      if (e.shiftKey || e.ctrlKey || e.altKey) {
+       e.preventDefault();
+      } else {
+       var key = e.keyCode;
+       if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+        e.preventDefault();
+       }
+      }
+     });
 
 
 });

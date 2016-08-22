@@ -9,7 +9,7 @@
             <div class="tbl-1">
               <div class="row-1">
                 <div class="cell-1"> Seller &gt; Order Confirmation Pop up</div>
-                <div class="cell-1 text-right"> <a href="http://psmprojects.net//logistiks/ver7/buyer/Buyer_Order_confirmation_18.html#" style="color:#ff0000">Back to Posts</a></div>
+                <!-- <div class="cell-1 text-right"> <a href="http://psmprojects.net//logistiks/ver7/buyer/Buyer_Order_confirmation_18.html#" style="color:#ff0000">Back to Posts</a></div> -->
               </div>
             </div>
           </div>
@@ -46,7 +46,7 @@
   @foreach($orderConfirmation as $Orders)
   <tr>
     <td>{{$Orders->seller_name}}</td>
-    <td>123456</td>
+    <td>LGTKS56789201608</td>
     <td>{{$Orders->from_loc}}</td>
     <td>{{$Orders->to_loc}}</td>
     <td>{{date("Y-m-d", strtotime($Orders->dispatch_dt))}}</td>

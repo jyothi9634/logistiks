@@ -34,6 +34,7 @@ use App\Components\EmailHelper;
 use App\Components\EmailSender;
 use App\Components\Helper;
 use Validator;
+use App\Models\PincodeLocationDetails;
 
 
 class BuyerSearchController extends BaseController {
@@ -44,10 +45,11 @@ class BuyerSearchController extends BaseController {
      * 
      */
     
-       public function __construct(BuyerSearch $BuyerSearch,BuyerSearchComponent $buyerSearchComponent){
+       public function __construct(BuyerSearch $BuyerSearch,BuyerSearchComponent $buyerSearchComponent,PincodeLocationDetails $pincodeLocationDetails){
         
         $this->buyer = $BuyerSearch;
         $this->buyerSearchComponent = $buyerSearchComponent;
+        $this->pincodeLocationDetails = $pincodeLocationDetails;
     }
     /*
     /*
@@ -123,7 +125,10 @@ class BuyerSearchController extends BaseController {
      public function buyerFtlFilter() {
 
         $filterInputs = Input::all();
-        
+        $fromLoc = $this->pincodeLocationDetails->find($filterInputs['from_loc']);
+        $filterInputs['from_loc'] = $fromLoc->village;
+        $toLoc = $this->pincodeLocationDetails->find($filterInputs['to_loc']);
+        $filterInputs['to_loc'] = $toLoc->village;
         $filterInputs['searchType'] = "advancedFilter";
         
         $buyerSearchResult = BuyerSearchComponent::SellerPosts($filterInputs);
@@ -199,12 +204,19 @@ class BuyerSearchController extends BaseController {
 
     }
     
-    public function buyerGsa($buyer_id,$seller_id){
+    public function buyerGsa($buyer_id,$seller_id,$post_id){
         try{
             
-            $getGsadetails = $this->buyer->getGsadetails($buyer_id,$seller_id);
+            //$getGsadetails = $this->buyer->getGsadetails($buyer_id,$seller_id);
 
             $buyerconfirmorders = $this->buyer->getOrders($buyer_id);
+            
+            $seller_post_details   = $this->buyer->getPostdata($post_id,$seller_id);
+           
+            $getsellerInfo = $this->buyer->getsellerInfo($seller_id);
+           
+            //print_r($getsellerInfo);exit;
+            //$buyer_booknow_details = $this->buyer->buyerBooknow($seller_user_id);
 
             $total_sum = 0;
             
@@ -212,10 +224,17 @@ class BuyerSearchController extends BaseController {
                 
                 $total_sum = $total_sum + $value->price;
 
+                $seller_name = DB::table('lgtks_users as lu')
+                              ->leftjoin('lgtks_posts as lp','lp.user_id','=','lu.id')
+                              ->where('lp.id',$value->post_id)
+                              ->pluck('lu.name');
+
+                 $value->seller_name =   $seller_name[0];  
+
                }  
 
 
-            return view('Buyers.buyergsa',['buyer_gsa'=>$getGsadetails,'buyer_id'=>$buyer_id,'price'=>$total_sum]);
+            return view('Buyers.buyergsa',['buyerconfirmorders'=>$buyerconfirmorders,'buyer_id'=>$buyer_id,'price'=>$total_sum,'seller_post_details'=>$seller_post_details,'getsellerInfo'=>$getsellerInfo]);
             
         }
         catch(Exception $ex){
