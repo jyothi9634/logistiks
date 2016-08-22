@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://logistiks.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -148,7 +148,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-
+       
+         #Illuminate\Html\HtmlServiceProvider::class,
         /*
          * Application Service Providers...
          */
