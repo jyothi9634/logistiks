@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="container-1 gray-bg-1">
-    <form action="registration/store" id="formId" name="formId">
+    <form action="registration/store" id="formId" name="formId" autocomplete="off" method="Post">
         <div class="registration-main-1">
             <div id="uservalidation" style="display:none;">
 
@@ -120,7 +120,7 @@
                                         equalTo: '#email'
 
                                     },
-                                    password: {
+                                   /* password: {
                                         required: true,
                                         minlength: 8,
                                         maxlength: 16,
@@ -131,7 +131,7 @@
                                         required: true,
                                         equalTo: "#password",
                                         pwscheck: true
-                                    },
+                                    },*/
                                 },
                                 /*     
                                  submitHandler: function (marketformId) {

@@ -58,7 +58,7 @@ class RegistrationController extends BaseController
       
       $session_otp = Session::get('user_otp');
       
-      if($inputs['otp'] != $session_otp){
+      if($inputs['otp'] == $session_otp){
         
         $status = 1;
 
